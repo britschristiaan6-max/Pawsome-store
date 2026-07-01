@@ -1301,11 +1301,14 @@ function productCard(p){
 
 /* ============ PRODUCT DETAIL DRAWER ============ */
 var pdCurrentId = null;
+var pdCurrentProduct = null;
 var pdQty = 1;
 function openProductDetail(id){
-  const p = products.find(function(x){ return x.id===id; });
+  var p = null;
+  for(var i=0;i<products.length;i++){ if(products[i].id===id){ p=products[i]; break; } }
   if(!p) return;
   pdCurrentId = id;
+  pdCurrentProduct = p;
   pdQty = 1;
   // image
   const imgWrap = document.getElementById("pdImgWrap");
@@ -1355,18 +1358,16 @@ function pdUpdateTotal(){
   document.getElementById("pdTotalAmt").textContent = "R"+total;
 }
 function pdAddToCart(){
-  const p = products.find(function(x){ return x.id===pdCurrentId; });
-  if(!p) return;
-  // add main item(s) directly
-  const existing = cart.find(function(c){ return c.id===p.id && !c.isGift; });
-  if(existing){ existing.qty += pdQty; }
-  else { cart.push({id:p.id, name:p.name, price:p.price, icon:p.icon, qty:pdQty, isGift:false, donor:null}); }
-  // add shelter gift if checked
-  const shelterChk = document.getElementById("pdShelterCheck");
-  if(shelterChk && shelterChk.checked){
-    const gx = cart.find(function(c){ return c.id===p.id && c.isGift; });
-    if(gx){ gx.qty++; }
-    else { cart.push({id:p.id, name:p.name, price:p.price, icon:p.icon, qty:1, isGift:true, donor:null}); }
+  var p = pdCurrentProduct;
+  if(!p){ showToast("Error: no product loaded"); return; }
+  var found=false;
+  for(var i=0;i<cart.length;i++){ if(cart[i].id===p.id&&!cart[i].isGift){cart[i].qty+=pdQty;found=true;break;} }
+  if(!found){ cart.push({id:p.id,name:p.name,price:p.price,icon:p.icon,qty:pdQty,isGift:false,donor:null}); }
+  var shelterChk=document.getElementById("pdShelterCheck");
+  if(shelterChk&&shelterChk.checked){
+    var gf=false;
+    for(var i=0;i<cart.length;i++){ if(cart[i].id===p.id&&cart[i].isGift){cart[i].qty++;gf=true;break;} }
+    if(!gf){ cart.push({id:p.id,name:p.name,price:p.price,icon:p.icon,qty:1,isGift:true,donor:null}); }
   }
   updateCartCount();
   closeProductDetail();
@@ -1374,16 +1375,16 @@ function pdAddToCart(){
   openCart();
 }
 function pdBuyNow(){
-  const p = products.find(function(x){ return x.id===pdCurrentId; });
-  if(!p) return;
-  const existing = cart.find(function(c){ return c.id===p.id && !c.isGift; });
-  if(existing){ existing.qty += pdQty; }
-  else { cart.push({id:p.id, name:p.name, price:p.price, icon:p.icon, qty:pdQty, isGift:false, donor:null}); }
-  const shelterChk = document.getElementById("pdShelterCheck");
-  if(shelterChk && shelterChk.checked){
-    const gx = cart.find(function(c){ return c.id===p.id && c.isGift; });
-    if(gx){ gx.qty++; }
-    else { cart.push({id:p.id, name:p.name, price:p.price, icon:p.icon, qty:1, isGift:true, donor:null}); }
+  var p = pdCurrentProduct;
+  if(!p){ showToast("Error: no product loaded"); return; }
+  var found=false;
+  for(var i=0;i<cart.length;i++){ if(cart[i].id===p.id&&!cart[i].isGift){cart[i].qty+=pdQty;found=true;break;} }
+  if(!found){ cart.push({id:p.id,name:p.name,price:p.price,icon:p.icon,qty:pdQty,isGift:false,donor:null}); }
+  var shelterChk=document.getElementById("pdShelterCheck");
+  if(shelterChk&&shelterChk.checked){
+    var gf=false;
+    for(var i=0;i<cart.length;i++){ if(cart[i].id===p.id&&cart[i].isGift){cart[i].qty++;gf=true;break;} }
+    if(!gf){ cart.push({id:p.id,name:p.name,price:p.price,icon:p.icon,qty:1,isGift:true,donor:null}); }
   }
   updateCartCount();
   closeProductDetail();
@@ -1636,14 +1637,6 @@ function updateFreeDelivery(total){
     text.textContent = "🚚 Add R"+rem+" more for free delivery";
     text.style.color = "#166534";
   }
-}
-
-/* Hook into cart totals to update free delivery bar */
-var _origCartTotals = cartTotals;
-function cartTotals(){
-  var t = _origCartTotals ? _origCartTotals() : {total:0};
-  updateFreeDelivery(t.total||0);
-  return t;
 }
 
 /* Thank you page — detect PayFast return URL */
