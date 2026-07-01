@@ -408,6 +408,48 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 .ty-wa{background:#25D366;color:#fff;border-radius:14px;padding:14px;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-bottom:10px;text-decoration:none;cursor:pointer;border:none}
 .ty-shop{background:var(--forest);color:#fff;border-radius:14px;padding:14px;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;cursor:pointer;border:none}
 
+/* ============ PRODUCT DETAIL DRAWER ============ */
+.pd-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;opacity:0;pointer-events:none;transition:opacity .3s}
+.pd-overlay.open{opacity:1;pointer-events:all}
+.pd-sheet{position:fixed;bottom:0;left:0;right:0;max-height:94vh;background:#fff;border-radius:24px 24px 0 0;z-index:601;transform:translateY(100%);transition:transform .35s cubic-bezier(.32,0,.67,0);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pd-sheet.open{transform:translateY(0)}
+.pd-handle{width:40px;height:4px;background:var(--border);border-radius:100px;margin:12px auto 4px}
+.pd-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border:none;background:var(--cream);border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--mid);z-index:2}
+.pd-img-wrap{width:100%;aspect-ratio:1/1;background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden;max-height:260px}
+.pd-img-wrap img{width:100%;height:100%;object-fit:contain}
+.pd-img-placeholder{font-size:5rem}
+.pd-body{padding:18px 20px 160px}
+.pd-brand{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--soft);margin-bottom:4px}
+.pd-name{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.25}
+.pd-rating-row{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--mid);margin-bottom:12px}
+.pd-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.pd-price{font-family:var(--display);font-size:1.9rem;font-weight:900;color:var(--forest)}
+.pd-orig-price{font-size:1rem;color:var(--soft);text-decoration:line-through}
+.pd-desc{font-size:.86rem;color:var(--mid);line-height:1.7;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:18px}
+.pd-qty-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.pd-qty-label{font-size:.82rem;font-weight:700;color:var(--ink)}
+.pd-qty{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:12px;overflow:hidden}
+.pd-qty button{width:42px;height:42px;border:none;background:var(--cream);font-size:1.3rem;cursor:pointer;color:var(--forest);font-weight:800}
+.pd-qty span{width:44px;text-align:center;font-weight:800;font-size:1rem;color:var(--ink)}
+.pd-shelter-box{background:#f0fdf4;border:1.5px solid #86efac;border-radius:16px;padding:14px 16px;margin-bottom:20px}
+.pd-shelter-title{font-size:.82rem;font-weight:800;color:var(--forest);margin-bottom:8px}
+.pd-shelter-note{font-size:.78rem;color:var(--mid);line-height:1.55;margin-bottom:10px}
+.pd-shelter-check{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;color:var(--forest);cursor:pointer}
+.pd-shelter-check input{width:18px;height:18px;accent-color:var(--forest)}
+.pd-footer{position:fixed;bottom:0;left:0;right:0;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--border);z-index:602}
+.pd-total-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.pd-total-label{font-size:.72rem;color:var(--soft);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.pd-total-amt{font-family:var(--display);font-size:1.5rem;font-weight:900;color:var(--forest)}
+.pd-btn-row{display:flex;gap:10px}
+.pd-cart-btn{flex:1;padding:14px;background:var(--cream);color:var(--forest);border:2px solid var(--forest);border-radius:14px;font-size:.84rem;font-weight:800;cursor:pointer}
+.pd-buy-btn{flex:2;padding:14px;background:var(--flame);color:#fff;border:none;border-radius:14px;font-size:.84rem;font-weight:800;cursor:pointer}
+/* Cart back button */
+.cart-back-btn{background:none;border:none;color:var(--forest);font-weight:700;font-size:.85rem;cursor:pointer;padding:0}
+/* Cart checkout form */
+.co-form{padding:16px 20px 120px}
+.co-section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:12px}
+.field select{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:.88rem;background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
+
 /* ============================================================
    DESKTOP OVERRIDES (>=860px) — same DOM, different layout
    ============================================================ */
@@ -521,7 +563,11 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   .footer-socials{justify-content:flex-start}
   .footer-bottom{padding:20px 4vw}
 
-  /* ---- shop page ---- */
+  /* ---- product detail drawer ---- */
+  .pd-sheet{top:0;bottom:0;left:auto;right:0;width:460px;max-height:none;border-radius:0;transform:translateX(100%)}
+  .pd-sheet.open{transform:translateX(0)}
+  .pd-footer{left:auto;right:0;width:460px}
+  .pd-img-wrap{max-height:300px}
   .shop-head{padding-top:3vw;position:static;border-bottom:none}
   .shop-head .wrap{padding:0 4vw}
   .shop-head h1{font-size:clamp(1.7rem,2.6vw,2.4rem);margin-bottom:0}
@@ -912,17 +958,117 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   <button class="tab-btn" id="tab-account" onclick="goPage('account')"><span class="tab-icon">👤</span>Account</button>
 </nav>
 
-<!-- ===== CART PANEL (unified: sheet on mobile, drawer on desktop) ===== -->
+<!-- ===== CART PANEL ===== -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-panel-handle"></div>
-  <div class="drawer-head"><h3>Your Basket</h3><button class="drawer-close" onclick="closeCart()">✕</button></div>
-  <div class="free-del-widget" id="freeDelWidget">
-    <div class="free-del-text" id="freeDelText">🚚 Add R600 more for free delivery</div>
-    <div class="free-del-track"><div class="free-del-progress" id="freeDelBar" style="width:0%"></div></div>
+  <div class="drawer-head" id="cartHead">
+    <button class="cart-back-btn" id="cartBackBtn" onclick="cartGoStep(0)" style="display:none">← Back</button>
+    <h3 id="cartTitle">Your Basket</h3>
+    <button class="drawer-close" onclick="closeCart()">✕</button>
   </div>
-  <div class="drawer-body" id="cartBody"></div>
-  <div class="drawer-foot" id="cartFoot"></div>
+  <!-- Step 0: Cart items -->
+  <div id="cartStep0">
+    <div class="free-del-widget" id="freeDelWidget">
+      <div class="free-del-text" id="freeDelText">🚚 Add R600 more for free delivery</div>
+      <div class="free-del-track"><div class="free-del-progress" id="freeDelBar" style="width:0%"></div></div>
+    </div>
+    <div class="drawer-body" id="cartBody"></div>
+    <div class="drawer-foot" id="cartFoot"></div>
+  </div>
+  <!-- Step 1: Checkout form -->
+  <div id="cartStep1" style="display:none">
+    <div class="co-form">
+      <div class="co-section-label">📦 Delivery details</div>
+      <div class="field-row-2">
+        <div class="field"><label>First Name*</label><input type="text" id="pfFirstName" placeholder="Thandi"/></div>
+        <div class="field"><label>Last Name*</label><input type="text" id="pfLastName" placeholder="Mokoena"/></div>
+      </div>
+      <div class="field"><label>Email address*</label><input type="email" id="pfEmail" placeholder="thandi@email.com"/></div>
+      <div class="field"><label>Phone number*</label><input type="tel" id="pfPhone" placeholder="071 234 5678"/></div>
+      <div class="field"><label>Street address*</label><input type="text" id="pfStreet" placeholder="12 Main Street"/></div>
+      <div class="field-row-2">
+        <div class="field"><label>Suburb</label><input type="text" id="pfSuburb" placeholder="Sandton"/></div>
+        <div class="field"><label>Postal code*</label><input type="text" id="pfPostal" placeholder="2196"/></div>
+      </div>
+      <div class="field-row-2">
+        <div class="field"><label>City*</label><input type="text" id="pfCity" placeholder="Johannesburg"/></div>
+        <div class="field"><label>Province*</label>
+          <select id="pfProvince">
+            <option value="">Select…</option>
+            <option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option>
+            <option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option>
+            <option>North West</option><option>Free State</option><option>Northern Cape</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Delivery note (optional)</label><input type="text" id="pfNote" placeholder="Gate code, complex name, etc."/></div>
+
+      <div class="co-section-label" style="margin-top:18px">💳 Order summary</div>
+      <div class="pf-summary" id="pfSummary"></div>
+
+      <button class="pf-pay-btn" onclick="submitToPayfast()"><span>Pay securely with PayFast</span><span id="pfTotalBtn">R0.00</span></button>
+      <div class="checkout-trust">
+        <div class="trust-tile"><span class="ti">🇿🇦</span>Proudly SA</div>
+        <div class="trust-tile"><span class="ti">🔒</span>PayFast</div>
+        <div class="trust-tile"><span class="ti">🚚</span>Takealot</div>
+        <div class="trust-tile"><span class="ti">📦</span>Next day</div>
+      </div>
+      <div class="pf-secure">🔒 Card · Instant EFT · SnapScan · Zapper · Mobicred</div>
+      <form id="payfastForm" action="https://www.payfast.co.za/eng/process" method="POST" style="display:none">
+        <input type="hidden" name="merchant_id" id="pf_merchant_id" value="YOUR_MERCHANT_ID"/>
+        <input type="hidden" name="merchant_key" id="pf_merchant_key" value="YOUR_MERCHANT_KEY"/>
+        <input type="hidden" name="return_url" value="https://pawsome-sa.netlify.app/thank-you"/>
+        <input type="hidden" name="cancel_url" value="https://pawsome-sa.netlify.app"/>
+        <input type="hidden" name="amount" id="pf_amount" value="0"/>
+        <input type="hidden" name="item_name" value="PawSome Order"/>
+        <input type="hidden" name="name_first" id="pf_first" value=""/>
+        <input type="hidden" name="name_last" id="pf_last" value=""/>
+        <input type="hidden" name="email_address" id="pf_email" value=""/>
+        <input type="hidden" name="custom_str1" id="pf_cstr1" value=""/>
+        <input type="hidden" name="custom_str2" id="pf_cstr2" value=""/>
+        <input type="hidden" name="custom_str3" id="pf_cstr3" value=""/>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUCT DETAIL DRAWER ===== -->
+<div class="pd-overlay" id="pdOverlay" onclick="closeProductDetail()"></div>
+<div class="pd-sheet" id="pdSheet">
+  <div class="pd-handle"></div>
+  <button class="pd-close" onclick="closeProductDetail()">✕</button>
+  <div class="pd-img-wrap" id="pdImgWrap"><div class="pd-img-placeholder" id="pdIcon"></div></div>
+  <div class="pd-body">
+    <div class="pd-brand" id="pdBrand"></div>
+    <div class="pd-name" id="pdName"></div>
+    <div class="pd-rating-row" id="pdRating"></div>
+    <div class="pd-price-row" id="pdPriceRow"></div>
+    <div class="pd-desc" id="pdDesc"></div>
+    <div class="pd-qty-row">
+      <span class="pd-qty-label">Quantity</span>
+      <div class="pd-qty">
+        <button onclick="pdChangeQty(-1)">−</button>
+        <span id="pdQtyVal">1</span>
+        <button onclick="pdChangeQty(1)">+</button>
+      </div>
+    </div>
+    <div class="pd-shelter-box" id="pdShelterBox" style="display:none">
+      <div class="pd-shelter-title">💚 Also give to a shelter animal?</div>
+      <p class="pd-shelter-note">Add a second item at the same price — we hand-deliver it to Wollies or the SPCA and film the moment for TikTok.</p>
+      <label class="pd-shelter-check"><input type="checkbox" id="pdShelterCheck"/> Yes, add a shelter gift (+<span id="pdShelterPrice"></span>)</label>
+    </div>
+  </div>
+  <div class="pd-footer">
+    <div class="pd-total-row">
+      <span class="pd-total-label">TOTAL TO PAY</span>
+      <span class="pd-total-amt" id="pdTotalAmt">R0</span>
+    </div>
+    <div class="pd-btn-row">
+      <button class="pd-cart-btn" onclick="pdAddToCart()">🛒 Add to cart</button>
+      <button class="pd-buy-btn" onclick="pdBuyNow()">Complete Order →</button>
+    </div>
+  </div>
 </div>
 
 <!-- ===== DONATION MODAL (unified) ===== -->
@@ -940,43 +1086,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   </div>
 </div>
 
-<!-- ===== CHECKOUT MODAL (unified) ===== -->
-<div class="modal-overlay" id="checkoutOverlay" onclick="if(event.target===this)closeCheckoutModal()">
-  <div class="sheet" id="checkoutSheet">
-    <div class="sheet-handle"></div>
-    <button class="sheet-close" onclick="closeCheckoutModal()">✕</button>
-    <div class="sheet-pad">
-      <h3>Complete your order</h3>
-      <p class="sub">Your details are needed to process payment securely via PayFast.</p>
-      <div class="field-row-2">
-        <div class="field"><label>First Name</label><input type="text" id="pfFirstName" placeholder="Thandi"/></div>
-        <div class="field"><label>Last Name</label><input type="text" id="pfLastName" placeholder="Mokoena"/></div>
-      </div>
-      <div class="field"><label>Email</label><input type="email" id="pfEmail" placeholder="thandi@email.com"/></div>
-      <div class="field"><label>Phone</label><input type="tel" id="pfPhone" placeholder="071 234 5678"/></div>
-      <div class="pf-summary" id="pfSummary"></div>
-      <button class="pf-pay-btn" onclick="submitToPayfast()"><span>Pay with PayFast</span><span id="pfTotalBtn">R0.00</span></button>
-      <div class="checkout-trust">
-        <div class="trust-tile"><span class="ti">🇿🇦</span>Proudly South African</div>
-        <div class="trust-tile"><span class="ti">🔒</span>Secured by PayFast</div>
-        <div class="trust-tile"><span class="ti">🚚</span>Delivered by Takealot</div>
-        <div class="trust-tile"><span class="ti">📦</span>Next day most cities</div>
-      </div>
-      <div class="pf-secure">🔒 Secured by PayFast · Google Pay · Apple Pay · Card · EFT</div>
-      <form id="payfastForm" action="https://www.payfast.co.za/eng/process" method="POST" style="display:none">
-        <input type="hidden" name="merchant_id" id="pf_merchant_id" value="YOUR_MERCHANT_ID"/>
-        <input type="hidden" name="merchant_key" id="pf_merchant_key" value="YOUR_MERCHANT_KEY"/>
-        <input type="hidden" name="return_url" value="https://pawsome-sa.netlify.app/thank-you"/>
-        <input type="hidden" name="cancel_url" value="https://pawsome.co.za/cart"/>
-        <input type="hidden" name="amount" id="pf_amount" value="0"/>
-        <input type="hidden" name="item_name" value="PawSome Order"/>
-        <input type="hidden" name="name_first" id="pf_first" value=""/>
-        <input type="hidden" name="name_last" id="pf_last" value=""/>
-        <input type="hidden" name="email_address" id="pf_email" value=""/>
-      </form>
-    </div>
-  </div>
-</div>
+<!-- checkout is now inside the cart panel -->
 
 <a class="wa-float" href="https://wa.me/27716430290?text=Hi%20PawSome!%20I%20need%20help%20with%20my%20order." target="_blank">💬</a>
 <div class="toast" id="toast"></div>
@@ -1166,16 +1276,14 @@ function productCard(p){
   const origPrice = p.orig ? '<span class="orig">R'+p.orig+'</span>' : "";
   const imgPath = p.image || ("images/products/"+p.id+".jpg");
   const safeName = (p.name||"").replace(/"/g,"&quot;");
-  // Stock badge — show for hot/sale/popular products
   const stockNums = [3,2,4,2,3,5,2,3,4,2,3,2,4,3,2,5,3,2,4,3,2,3,4,2];
   const showStock = p.badge === "hot" || p.badge === "sale" || p.badge === "popular";
   const stockN = stockNums[(p.id||0) % stockNums.length];
   const stockBadge = showStock ? '<div class="stock-badge">Only '+stockN+' left!</div>' : "";
-  // Viewers badge — show for popular products
   const viewerNums = [4,6,3,7,5,8,4,6,3,5,7,4,6,5,3,7,4,6,5,4,7,6,3,5];
   const viewN = viewerNums[(p.id||0) % viewerNums.length];
   const viewerBadge = (p.badge === "hot" || p.badge === "popular") ? '<div class="card-viewers">👁 '+viewN+' viewing</div>' : "";
-  return '<div class="product-card" onclick="addToCart('+p.id+')">' +
+  return '<div class="product-card" onclick="openProductDetail('+p.id+')">' +
     '<div class="product-media">'+badge+shelterFlag+stockBadge+
       '<img class="product-img" src="'+imgPath+'" alt="'+safeName+'" loading="lazy" onerror="this.parentElement.classList.add(\'no-image\')"/>' +
       '<div class="product-placeholder"><span class="ph-icon">'+p.icon+'</span><span>Photo coming soon</span></div>' +
@@ -1189,6 +1297,85 @@ function productCard(p){
       '<button class="add-btn" onclick="event.stopPropagation();addToCart('+p.id+')">+</button></div>' +
     '</div></div>';
 }
+
+/* ============ PRODUCT DETAIL DRAWER ============ */
+var pdCurrentId = null;
+var pdQty = 1;
+function openProductDetail(id){
+  const p = products.find(function(x){ return x.id===id; });
+  if(!p) return;
+  pdCurrentId = id;
+  pdQty = 1;
+  // image
+  const imgWrap = document.getElementById("pdImgWrap");
+  if(p.image){
+    imgWrap.innerHTML = '<img src="'+p.image+'" alt="'+p.name+'" onerror="this.style.display=\'none\';document.getElementById(\'pdIcon\').style.display=\'block\'"/><div class="pd-img-placeholder" id="pdIcon" style="display:none">'+p.icon+'</div>';
+  } else {
+    imgWrap.innerHTML = '<div class="pd-img-placeholder">'+p.icon+'</div>';
+  }
+  document.getElementById("pdBrand").textContent = p.brand;
+  document.getElementById("pdName").textContent = p.name;
+  const stars = "★★★★★".slice(0,Math.round(p.rating));
+  document.getElementById("pdRating").innerHTML = '<span style="color:var(--gold)">'+stars+'</span><span>'+p.rating+' ('+p.rev+' reviews)</span>';
+  const origHtml = p.orig ? '<span class="pd-orig-price">R'+p.orig+'</span>' : "";
+  document.getElementById("pdPriceRow").innerHTML = '<span class="pd-price">R'+p.price+'</span>'+origHtml;
+  document.getElementById("pdDesc").textContent = p.desc || "";
+  document.getElementById("pdQtyVal").textContent = "1";
+  // shelter
+  const shelterBox = document.getElementById("pdShelterBox");
+  if(p.shelter){
+    shelterBox.style.display = "block";
+    document.getElementById("pdShelterPrice").textContent = "R"+p.price;
+    document.getElementById("pdShelterCheck").checked = false;
+  } else {
+    shelterBox.style.display = "none";
+  }
+  pdUpdateTotal();
+  // open
+  document.getElementById("pdOverlay").classList.add("open");
+  document.getElementById("pdSheet").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeProductDetail(){
+  document.getElementById("pdOverlay").classList.remove("open");
+  document.getElementById("pdSheet").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function pdChangeQty(delta){
+  pdQty = Math.max(1, pdQty + delta);
+  document.getElementById("pdQtyVal").textContent = pdQty;
+  pdUpdateTotal();
+}
+function pdUpdateTotal(){
+  const p = products.find(function(x){ return x.id===pdCurrentId; });
+  if(!p) return;
+  const shelterChecked = document.getElementById("pdShelterCheck") && document.getElementById("pdShelterCheck").checked;
+  const total = p.price * pdQty + (shelterChecked ? p.price : 0);
+  document.getElementById("pdTotalAmt").textContent = "R"+total;
+}
+function pdAddToCart(){
+  const p = products.find(function(x){ return x.id===pdCurrentId; });
+  if(!p) return;
+  for(var i=0; i<pdQty; i++) addToCart(pdCurrentId, false);
+  const shelterChecked = document.getElementById("pdShelterCheck") && document.getElementById("pdShelterCheck").checked;
+  if(shelterChecked) addToCart(pdCurrentId, true);
+  closeProductDetail();
+  openCart();
+}
+function pdBuyNow(){
+  const p = products.find(function(x){ return x.id===pdCurrentId; });
+  if(!p) return;
+  for(var i=0; i<pdQty; i++) addToCart(pdCurrentId, false);
+  const shelterChecked = document.getElementById("pdShelterCheck") && document.getElementById("pdShelterCheck").checked;
+  if(shelterChecked) addToCart(pdCurrentId, true);
+  closeProductDetail();
+  openCart();
+  setTimeout(function(){ cartGoStep(1); }, 200);
+}
+// keep shelter total updated when checkbox changes
+document.addEventListener("change", function(e){
+  if(e.target && e.target.id === "pdShelterCheck") pdUpdateTotal();
+});
 
 /* ============ CART ============ */
 function addToCart(id, isGift){
@@ -1219,27 +1406,54 @@ function cartTotals(){
   cart.forEach(function(c){ const line=c.price*c.qty; if(c.isGift) shelterTotal+=line; else subtotal+=line; });
   return {subtotal:subtotal, shelterTotal:shelterTotal, total: subtotal+shelterTotal};
 }
-function openCart(){ document.getElementById("cartOverlay").classList.add("open"); document.getElementById("cartPanel").classList.add("open"); renderCart(); }
-function closeCart(){ document.getElementById("cartOverlay").classList.remove("open"); document.getElementById("cartPanel").classList.remove("open"); }
+function openCart(){
+  document.getElementById("cartOverlay").classList.add("open");
+  document.getElementById("cartPanel").classList.add("open");
+  cartGoStep(0);
+  renderCart();
+}
+function closeCart(){
+  document.getElementById("cartOverlay").classList.remove("open");
+  document.getElementById("cartPanel").classList.remove("open");
+}
+function cartGoStep(step){
+  document.getElementById("cartStep0").style.display = step===0 ? "" : "none";
+  document.getElementById("cartStep1").style.display = step===1 ? "" : "none";
+  document.getElementById("cartBackBtn").style.display = step===1 ? "" : "none";
+  document.getElementById("cartTitle").textContent = step===0 ? "Your Basket" : "Delivery & Payment";
+}
 function renderCart(){
   const body = document.getElementById("cartBody");
   const foot = document.getElementById("cartFoot");
   if(!cart.length){
     body.innerHTML = '<div class="empty-cart"><div class="ic">🛒</div><p>Your basket is empty.</p></div>';
     foot.innerHTML = '';
+    updateFreeDelivery(0);
     return;
   }
   const t = cartTotals();
+  updateFreeDelivery(t.total);
   body.innerHTML = cart.map(function(c, idx){
     return '<div class="cart-item"><div class="ci-media">'+c.icon+'</div><div class="ci-info"><h4>'+c.name+'</h4>' +
       (c.isGift ? '<div class="ci-shelter">💚 Shelter gift'+(c.donor?(' · '+c.donor):'')+'</div>' : '') +
       '<div class="ci-price">R'+(c.price*c.qty)+'</div></div>' +
       '<div class="qty-stepper"><button onclick="changeQty('+idx+',-1)">−</button><span>'+c.qty+'</span><button onclick="changeQty('+idx+',1)">+</button></div></div>';
   }).join("");
-  foot.innerHTML = '<div class="summary-row"><span>Subtotal</span><span>R'+t.subtotal+'</span></div>' +
+  foot.innerHTML =
+    '<div class="summary-row"><span>Subtotal</span><span>R'+t.subtotal+'</span></div>' +
     (t.shelterTotal ? '<div class="summary-row shelter"><span>💚 Shelter gifts</span><span>R'+t.shelterTotal+'</span></div>' : '') +
     '<div class="summary-row total"><span>Total</span><span>R'+t.total+'</span></div>' +
-    '<button class="checkout-btn" onclick="openCheckoutModal()">Checkout → R'+t.total+'</button>';
+    '<button class="checkout-btn" onclick="cartGoToCheckout()">Checkout · R'+t.total+' →</button>';
+}
+function cartGoToCheckout(){
+  const t = cartTotals();
+  document.getElementById("pfSummary").innerHTML =
+    '<div class="pf-summary-row"><span>Subtotal</span><span>R'+t.subtotal+'</span></div>' +
+    (t.shelterTotal ? '<div class="pf-summary-row"><span>💚 Shelter gifts</span><span>R'+t.shelterTotal+'</span></div>' : '') +
+    '<div class="pf-summary-row total"><span>Total due</span><span>R'+t.total+'</span></div>';
+  document.getElementById("pfTotalBtn").textContent = "R"+t.total;
+  cartGoStep(1);
+  document.getElementById("cartPanel").scrollTop = 0;
 }
 
 /* ============ DONATION MODAL ============ */
@@ -1258,27 +1472,31 @@ function confirmDonation(){
   openCart();
 }
 
-/* ============ CHECKOUT ============ */
-function openCheckoutModal(){
-  const t = cartTotals();
-  document.getElementById("pfSummary").innerHTML =
-    '<div class="pf-summary-row"><span>Subtotal</span><span>R'+t.subtotal+'</span></div>' +
-    (t.shelterTotal ? '<div class="pf-summary-row"><span>Shelter gifts</span><span>R'+t.shelterTotal+'</span></div>' : '') +
-    '<div class="pf-summary-row total"><span>Total due</span><span>R'+t.total+'</span></div>';
-  document.getElementById("pfTotalBtn").textContent = "R"+t.total;
-  document.getElementById("checkoutOverlay").classList.add("open");
-  closeCart();
-}
-function closeCheckoutModal(){ document.getElementById("checkoutOverlay").classList.remove("open"); }
+/* ============ CHECKOUT — now inside cart panel, see cartGoToCheckout() ============ */
 function submitToPayfast(){
-  const first = document.getElementById("pfFirstName").value.trim();
-  const email = document.getElementById("pfEmail").value.trim();
-  if(!first || !email){ showToast("Please fill in your name & email"); return; }
+  const first   = (document.getElementById("pfFirstName").value||"").trim();
+  const last    = (document.getElementById("pfLastName").value||"").trim();
+  const email   = (document.getElementById("pfEmail").value||"").trim();
+  const phone   = (document.getElementById("pfPhone").value||"").trim();
+  const street  = (document.getElementById("pfStreet").value||"").trim();
+  const suburb  = (document.getElementById("pfSuburb").value||"").trim();
+  const city    = (document.getElementById("pfCity").value||"").trim();
+  const prov    = (document.getElementById("pfProvince").value||"").trim();
+  const postal  = (document.getElementById("pfPostal").value||"").trim();
+  const note    = (document.getElementById("pfNote").value||"").trim();
+  if(!first || !email || !phone || !street || !city || !postal || !prov){
+    showToast("Please fill in all required fields"); return;
+  }
+  if(!email.includes("@")){ showToast("Please enter a valid email"); return; }
   const t = cartTotals();
-  document.getElementById("pf_first").value = first;
-  document.getElementById("pf_last").value = document.getElementById("pfLastName").value.trim();
-  document.getElementById("pf_email").value = email;
+  const items = cart.map(function(c){ return c.name+" x"+c.qty+(c.isGift?" (shelter gift)":""); }).join(", ");
+  document.getElementById("pf_first").value  = first;
+  document.getElementById("pf_last").value   = last;
+  document.getElementById("pf_email").value  = email;
   document.getElementById("pf_amount").value = t.total.toFixed(2);
+  document.getElementById("pf_cstr1").value  = items.slice(0,255);
+  document.getElementById("pf_cstr2").value  = (first+" "+last+" | "+email+" | "+phone).slice(0,255);
+  document.getElementById("pf_cstr3").value  = (street+(suburb?", "+suburb:"")+" | "+city+" "+postal+" | "+prov+(note?" | Note: "+note:"")).slice(0,255);
   showToast("Redirecting to PayFast…");
   setTimeout(function(){ document.getElementById("payfastForm").submit(); }, 600);
 }
