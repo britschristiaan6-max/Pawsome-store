@@ -2,14 +2,18 @@
   publish = "."
   functions = "netlify/functions"
 
-# Redirect /api/payfast-itn → the function (cleaner URL for PayFast)
 [[redirects]]
-  from  = "/api/payfast-itn"
-  to    = "/.netlify/functions/payfast-itn"
+  from   = "/api/payfast-itn"
+  to     = "/.netlify/functions/payfast-itn"
   status = 200
 
-# Redirect everything else to index.html (SPA fallback)
 [[redirects]]
-  from  = "/*"
-  to    = "/index.html"
+  from       = "/*"
+  to         = "/index.html"
+  status     = 200
+  conditions = {Country = ["ZA"]}
+
+[[redirects]]
+  from   = "/*"
+  to     = "/unavailable.html"
   status = 200
