@@ -422,10 +422,10 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   .nav-search,.nav-cta{display:flex}
 
   /* ---- hero ---- */
-  .hero-inner{padding:5vw 4vw 6vw;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  .hero-inner{padding:4vw 4vw 5vw;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;max-width:1200px;margin:0 auto}
   .hero-visual{position:relative;inset:auto;z-index:auto}
   .hero-visual::after{display:none}
-  .hero-photo{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:4/5;border-radius:26px;box-shadow:0 26px 64px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18)}
+  .hero-photo{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:3/4;max-height:480px;object-fit:cover;border-radius:26px;box-shadow:0 26px 64px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.18)}
   .hero-floating-badge{display:flex;position:absolute;bottom:-18px;right:-18px;background:#fff;color:var(--forest);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow-lg);align-items:center;gap:10px;animation:float 3.5s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
   .hero-floating-badge .ic{font-size:1.4rem}
@@ -461,7 +461,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   /* ---- products ---- */
   .cat-pills{flex-wrap:wrap;overflow:visible;margin:0 0 30px;justify-content:center}
   .cat-pill{padding:11px 20px;border-radius:30px}
-  .product-grid{grid-template-columns:repeat(4,1fr);gap:22px}
+  .product-grid{grid-template-columns:repeat(3,1fr);gap:24px}
   .product-media{font-size:3.4rem}
   .product-info{padding:16px 16px 18px}
   .product-name{font-size:.92rem;min-height:2.5em}
