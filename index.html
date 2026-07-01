@@ -132,7 +132,7 @@ img{max-width:100%;display:block} button{font-family:inherit;cursor:pointer;bord
 .hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:30px 20px 38px}
 .hero-visual{position:absolute;inset:0;z-index:0}
 .hero-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(11,32,23,.90) 0%,rgba(27,67,50,.84) 55%,rgba(45,106,79,.72) 100%)}
-.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center 20%}
 .hero-floating-badge{display:none}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(232,93,4,.18);border:1px solid rgba(247,127,58,.4);color:var(--flame-2);font-size:.68rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 11px;border-radius:20px;margin-bottom:14px;opacity:0;animation:riseIn .6s ease forwards}
 .hero h1{font-family:var(--display);font-size:2.05rem;font-weight:700;line-height:1.12;margin-bottom:12px;opacity:0;animation:riseIn .6s ease .1s forwards}
@@ -196,7 +196,7 @@ img{max-width:100%;display:block} button{font-family:inherit;cursor:pointer;bord
 .product-card{background:var(--paper);border-radius:16px;overflow:hidden;border:1px solid var(--border);position:relative;transition:transform .2s,box-shadow .2s}
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .product-media{background:linear-gradient(145deg,#F1ECE0,#E8E1D0);aspect-ratio:1/0.85;display:flex;align-items:center;justify-content:center;font-size:2.6rem;position:relative;overflow:hidden}
-.product-img{width:100%;height:100%;object-fit:cover;display:block}
+.product-img{width:100%;height:100%;object-fit:contain;display:block}
 .product-placeholder{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--soft)}
 .product-placeholder .ph-icon{font-size:2.6rem;opacity:.6}
 .product-placeholder span{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
@@ -374,69 +374,6 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .counted{font-variant-numeric:tabular-nums}
 
-/* ============ PRODUCT DETAIL PAGE ============ */
-.pd-back{display:flex;align-items:center;gap:7px;color:var(--forest);font-weight:700;font-size:.86rem;padding:14px 20px 6px;background:none;border:none;cursor:pointer;width:100%}
-.pd-back:active{opacity:.65}
-.pd-hero-img{width:100%;aspect-ratio:1/1;background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden;max-height:340px}
-.pd-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
-.pd-hero-icon{font-size:6rem;opacity:.25;user-select:none}
-.pd-body{padding:18px 20px 30px}
-.pd-badge-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
-.pd-brand-tag{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--soft)}
-.pd-name{font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--ink);line-height:1.22;margin-bottom:8px}
-.pd-rating-row{display:flex;align-items:center;gap:6px;margin-bottom:10px}
-.pd-stars{color:var(--gold);font-size:.9rem}
-.pd-revcount{font-size:.75rem;color:var(--soft);font-weight:600}
-.pd-price-row{display:flex;align-items:baseline;gap:9px;margin-bottom:13px}
-.pd-price{font-family:var(--display);font-size:2.1rem;font-weight:900;color:var(--forest)}
-.pd-orig-price{font-size:.95rem;color:var(--soft);text-decoration:line-through}
-.pd-desc{font-size:.86rem;color:var(--mid);line-height:1.65;margin-bottom:20px}
-.pd-qty-row{display:flex;align-items:center;justify-content:space-between;background:var(--cream);border-radius:14px;padding:13px 16px;margin-bottom:22px}
-.pd-qty-label{font-weight:700;font-size:.9rem}
-/* shelter box on product page */
-.pd-shelter-box{background:#eef9f2;border:1.5px solid #a8dbbe;border-radius:18px;padding:16px;margin-bottom:22px}
-.pd-shelter-head{font-weight:800;font-size:.9rem;color:var(--forest);margin-bottom:11px}
-.pd-shelter-tabs{display:flex;gap:7px;margin-bottom:14px}
-.pd-shelter-tab{flex:1;padding:9px 4px;border-radius:11px;font-size:.74rem;font-weight:800;border:1.5px solid var(--border);background:var(--paper);color:var(--mid);cursor:pointer;transition:all .15s;text-align:center}
-.pd-shelter-tab.active{background:var(--forest);color:#fff;border-color:var(--forest)}
-.pd-shelter-desc{font-size:.79rem;color:var(--mid);margin-bottom:11px;line-height:1.5}
-.pd-shelter-box .field{margin-bottom:9px}
-.pd-shelter-box .field input,.pd-shelter-box .field select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 13px;font-size:.85rem;font-family:var(--font);outline:none;background:var(--paper)}
-.pd-shelter-box .field input:focus{border-color:var(--forest)}
-.pd-shelter-btn{width:100%;background:var(--forest);color:#fff;border-radius:12px;padding:13px;font-weight:800;font-size:.86rem;cursor:pointer;margin-top:4px;transition:background .15s}
-.pd-shelter-btn:active{background:var(--forest-deep)}
-/* section heading on product detail */
-.pd-section-title{font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--forest);margin:22px 0 12px;padding-top:18px;border-top:1.5px solid var(--border)}
-/* payment method grid */
-.pm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:10px}
-.pm-card{border:2px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .18s;background:var(--paper)}
-.pm-card:active,.pm-card:hover{border-color:var(--forest-2);background:var(--cream)}
-.pm-card.selected{border-color:var(--forest);background:#e8f4ee;box-shadow:0 0 0 1px var(--forest)}
-.pm-icon{font-size:1.7rem;margin-bottom:5px}
-.pm-name{font-size:.74rem;font-weight:800;color:var(--ink)}
-.pm-card.selected .pm-name{color:var(--forest)}
-/* fixed total bar */
-.pd-total-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:var(--paper);border-top:1.5px solid var(--border);z-index:400;display:none;align-items:center;gap:12px;box-shadow:0 -8px 28px rgba(11,32,23,.12)}
-.pd-total-bar.visible{display:flex}
-.pd-total-info{flex:1}
-.pd-total-lbl{font-size:.7rem;color:var(--soft);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.pd-total-amt{font-family:var(--display);font-size:1.3rem;font-weight:900;color:var(--forest)}
-.pd-order-btn{background:var(--flame);color:#fff;border-radius:14px;padding:14px 20px;font-weight:800;font-size:.88rem;border:none;cursor:pointer;white-space:nowrap;box-shadow:0 6px 18px rgba(232,93,4,.3);transition:background .15s}
-.pd-order-btn:active{background:var(--flame-2)}
-/* wa notice */
-.wa-notice{background:#e9faf0;border:1.5px solid #25D366;border-radius:12px;padding:10px 14px;font-size:.79rem;color:#1a5c34;font-weight:600;margin:12px 0 16px;line-height:1.45}
-/* card shelter give pill */
-.card-shelter-pill{position:absolute;bottom:8px;left:8px;background:rgba(14,80,40,.88);color:#fff;border-radius:8px;padding:4px 9px;font-size:.62rem;font-weight:800;cursor:pointer;z-index:5;backdrop-filter:blur(4px);border:none;letter-spacing:.02em}
-/* make product card fully clickable */
-.product-card{cursor:pointer;transition:transform .18s,box-shadow .18s}
-.product-card:active{transform:scale(.97)}
-/* view arrow replaces + btn */
-.view-arrow{width:34px;height:34px;background:var(--forest);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.95rem;font-weight:700;flex-shrink:0}
-/* field select global */
-.field select{width:100%;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-size:.88rem;font-family:var(--font);outline:none;color:var(--ink)}
-.field select:focus{border-color:var(--flame)}
-.pd-page-scroll-spacer{height:90px}
-
 /* ============================================================
    DESKTOP OVERRIDES (>=860px) — same DOM, different layout
    ============================================================ */
@@ -589,13 +526,6 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 
   .wa-float{bottom:28px;right:28px;width:58px;height:58px;font-size:1.6rem}
   .toast{bottom:36px}
-
-  /* ---- product detail desktop ---- */
-  #page-product{display:flex;flex-direction:row;max-width:1100px;margin:0 auto;gap:40px;padding:30px 4vw}
-  #page-product .pd-back{padding:0 0 18px}
-  #page-product .pd-hero-img{width:420px;height:420px;flex-shrink:0;border-radius:20px;overflow:hidden;max-height:none}
-  #page-product .pd-body{flex:1;padding:0}
-  .pd-total-bar{position:sticky;bottom:0;max-width:1100px;margin:0 auto}
 }
 
 @media (min-width:1100px){
@@ -617,7 +547,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   <div class="search-row">
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInputMobile" placeholder="Search dog food, cat litter, fish tanks..." oninput="onSearchInput(this.value,'searchSuggestMobile')" onfocus="onSearchInput(this.value,'searchSuggestMobile')"/>
+      <input type="text" id="searchInputMobile" placeholder="Search dog food, cat food, shelter gifts..." oninput="onSearchInput(this.value,'searchSuggestMobile')" onfocus="onSearchInput(this.value,'searchSuggestMobile')"/>
       <div class="search-suggest" id="searchSuggestMobile"></div>
     </div>
   </div>
@@ -647,7 +577,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
     <div class="nav-links" id="navLinks"></div>
     <div class="nav-search">
       <span class="si">🔍</span>
-      <input type="text" id="searchInputDesktop" placeholder="Search dog food, cat litter, fish tanks..." oninput="onSearchInput(this.value,'searchSuggestDesktop')" onfocus="onSearchInput(this.value,'searchSuggestDesktop')"/>
+      <input type="text" id="searchInputDesktop" placeholder="Search dog food, cat food, shelter gifts..." oninput="onSearchInput(this.value,'searchSuggestDesktop')" onfocus="onSearchInput(this.value,'searchSuggestDesktop')"/>
       <div class="nav-search-suggest" id="searchSuggestDesktop"></div>
     </div>
     <div class="nav-cta">
@@ -675,23 +605,23 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
           <button class="btn-ghost" onclick="goPage('give')">Our impact</button>
         </div>
         <div class="hero-stats">
-          <div class="hero-stat"><b class="counted" data-count="612">0</b><span>Gifts Given</span></div>
-          <div class="hero-stat"><b class="counted" data-count="24">0</b><span>SA Brands</span></div>
+          <div class="hero-stat"><b class="counted" data-count="1247">0</b><span>Meals Donated</span></div>
+          <div class="hero-stat"><b class="counted" data-count="487">0</b><span>Happy Customers</span></div>
           <div class="hero-stat"><b class="counted" data-count="2">0</b><span>Partner Shelters</span></div>
         </div>
       </div>
-      <div class="hero-floating-badge"><span class="ic">🐶</span><div><b>340</b><span>dogs reached</span></div></div>
+      <div class="hero-floating-badge"><span class="ic">💚</span><div><b>1,247</b><span>meals donated</span></div></div>
     </div>
   </div>
 
   <div class="section reveal" style="padding-bottom:0">
     <div class="chip-row">
       <span class="chip" onclick="quickSearch('dog food')">🍖 Dog Food</span>
-      <span class="chip" onclick="quickSearch('cat litter')">📦 Cat Litter</span>
-      <span class="chip" onclick="quickSearch('kong')">🎯 Dog Toys</span>
-      <span class="chip" onclick="quickSearch('fish tank')">🐠 Fish Tanks</span>
-      <span class="chip" onclick="quickSearch('hay')">🌾 Small Pets</span>
-      <span class="chip" onclick="quickSearch('bravecto')">💊 Flea & Tick</span>
+      <span class="chip" onclick="quickSearch('cat food')">🐱 Cat Food</span>
+      <span class="chip" onclick="quickSearch('puppy food')">🐶 Puppy Food</span>
+      <span class="chip" onclick="quickSearch('wet food')">🥩 Wet Food</span>
+      <span class="chip" onclick="goPage('give')">💚 Shelter Gifts</span>
+      <span class="chip" onclick="quickSearch('sale')">🔥 On Sale</span>
     </div>
   </div>
 
@@ -703,11 +633,11 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
         <h3>While you shop, shelters benefit.</h3>
         <p>Every dog & cat product has the option to be gifted to Wollies Dog Rescue or the SPCA — we film the handover and tag you on TikTok.</p>
       </div>
-      <div class="impact-grid">
-        <div class="impact-cell"><b class="counted" data-count="612">0</b><span>Items Donated</span></div>
-        <div class="impact-cell"><b class="counted" data-count="340">0</b><span>Dogs Reached</span></div>
-        <div class="impact-cell"><b class="counted" data-count="180">0</b><span>Cats Reached</span></div>
-      </div>
+        <div class="impact-grid">
+          <div class="impact-cell"><b class="counted" data-count="1247">0</b><span>Meals Donated</span></div>
+          <div class="impact-cell"><b class="counted" data-count="312">0</b><span>Dogs Reached</span></div>
+          <div class="impact-cell"><b class="counted" data-count="175">0</b><span>Cats Reached</span></div>
+        </div>
     </div>
   </div>
 
@@ -789,11 +719,11 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 
   <div class="section">
     <div class="wrap">
-      <div class="impact-grid" style="margin-bottom:28px">
-        <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="612">0</b><span style="color:var(--soft)">Items Donated</span></div>
-        <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="340">0</b><span style="color:var(--soft)">Dogs Reached</span></div>
-        <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="180">0</b><span style="color:var(--soft)">Cats Reached</span></div>
-      </div>
+        <div class="impact-grid" style="margin-bottom:28px">
+          <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="1247">0</b><span style="color:var(--soft)">Meals Donated</span></div>
+          <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="312">0</b><span style="color:var(--soft)">Dogs Reached</span></div>
+          <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="175">0</b><span style="color:var(--soft)">Cats Reached</span></div>
+        </div>
 
       <div class="shelters-grid">
         <div class="shelter-card">
@@ -884,139 +814,6 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   </div>
 </section>
 
-<section class="page" id="page-product">
-  <button class="pd-back" onclick="goPage('shop')">‹ Back to shop</button>
-
-  <!-- Hero image -->
-  <div class="pd-hero-img" id="pdImage"><div class="pd-hero-icon">🐾</div></div>
-
-  <div class="pd-body">
-    <!-- Info -->
-    <div class="pd-badge-row">
-      <span class="pd-brand-tag" id="pdBrand"></span>
-      <span id="pdBadgeWrap"></span>
-    </div>
-    <h1 class="pd-name" id="pdName"></h1>
-    <div class="pd-rating-row">
-      <span class="pd-stars" id="pdStars"></span>
-      <span class="pd-revcount" id="pdRevCount"></span>
-    </div>
-    <div class="pd-price-row">
-      <span class="pd-price" id="pdPrice"></span>
-      <span class="pd-orig-price" id="pdOrigPrice"></span>
-    </div>
-    <p class="pd-desc" id="pdDesc"></p>
-
-    <!-- Qty -->
-    <div class="pd-qty-row">
-      <span class="pd-qty-label">Quantity</span>
-      <div class="qty-stepper">
-        <button onclick="pdChangeQty(-1)">−</button>
-        <span id="pdQtyDisplay">1</span>
-        <button onclick="pdChangeQty(1)">+</button>
-      </div>
-    </div>
-
-    <!-- 💚 Shelter section (hidden for non-shelter products) -->
-    <div class="pd-shelter-box" id="pdShelterBox" style="display:none">
-      <div class="pd-shelter-head">💚 Give back to a shelter</div>
-      <div class="pd-shelter-tabs">
-        <button class="pd-shelter-tab active" id="shelterTabBuy" onclick="setShelterTab('buy')">🏠 Buy for Shelter</button>
-        <button class="pd-shelter-tab" id="shelterTabDonate" onclick="setShelterTab('donate')">💰 Donate Money</button>
-      </div>
-
-      <!-- Buy for shelter panel -->
-      <div id="shelterBuyPanel">
-        <p class="pd-shelter-desc">We'll order this exact product from Takealot and deliver it to the shelter. Filmed for TikTok &amp; credited to you!</p>
-        <div class="field"><label>Choose shelter</label>
-          <select id="shelterOrg"><option value="Wollies Dog Rescue">🐶 Wollies Dog Rescue</option><option value="SPCA South Africa">🏠 SPCA South Africa</option></select>
-        </div>
-        <div class="field"><label>Your name (TikTok credit)</label><input type="text" id="shelterDonorName" placeholder="e.g. Thandi M. (optional)"/></div>
-        <div class="field"><label>Your email *</label><input type="email" id="shelterDonorEmail" placeholder="thandi@email.com"/></div>
-        <div class="field"><label>Your phone *</label><input type="tel" id="shelterDonorPhone" placeholder="071 234 5678"/></div>
-        <button class="pd-shelter-btn" onclick="submitShelterAction()">Gift to shelter → R<span id="shelterPriceDisplay">0</span></button>
-      </div>
-
-      <!-- Donate money panel -->
-      <div id="shelterDonatePanel" style="display:none">
-        <p class="pd-shelter-desc">Make a direct cash donation. Every rand helps feed, vaccinate and care for shelter animals.</p>
-        <div class="field"><label>Choose shelter</label>
-          <select id="donateOrg"><option value="Wollies Dog Rescue">🐶 Wollies Dog Rescue</option><option value="SPCA South Africa">🏠 SPCA South Africa</option></select>
-        </div>
-        <div class="field"><label>Donation amount (R) *</label><input type="number" id="donateAmt" placeholder="e.g. 50" min="10"/></div>
-        <div class="field"><label>Your name (TikTok credit)</label><input type="text" id="donateDonorName" placeholder="e.g. Sipho R. (optional)"/></div>
-        <div class="field"><label>Your email *</label><input type="email" id="donateDonorEmail" placeholder="sipho@email.com"/></div>
-        <div class="field"><label>Your phone *</label><input type="tel" id="donateDonorPhone" placeholder="083 456 7890"/></div>
-        <button class="pd-shelter-btn" onclick="submitShelterAction()">Donate Now 💚</button>
-      </div>
-    </div>
-
-    <!-- Delivery Address -->
-    <div class="pd-section-title">📍 Delivery Address</div>
-    <div class="field"><label>Full Name *</label><input type="text" id="oName" placeholder="Thandi Mokoena"/></div>
-    <div class="field"><label>Phone *</label><input type="tel" id="oPhone" placeholder="071 234 5678"/></div>
-    <div class="field"><label>Email *</label><input type="email" id="oEmail" placeholder="thandi@email.com"/></div>
-    <div class="field"><label>Street Address *</label><input type="text" id="oAddr" placeholder="12 Jacaranda Street"/></div>
-    <div class="field-row-2">
-      <div class="field"><label>Suburb *</label><input type="text" id="oSuburb" placeholder="Menlo Park"/></div>
-      <div class="field"><label>Postal Code *</label><input type="text" id="oPostal" placeholder="0081" maxlength="4"/></div>
-    </div>
-    <div class="field-row-2">
-      <div class="field"><label>City *</label><input type="text" id="oCity" placeholder="Pretoria"/></div>
-      <div class="field"><label>Province</label>
-        <select id="oProvince">
-          <option value="">Select…</option>
-          <option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option>
-          <option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option>
-          <option>North West</option><option>Free State</option><option>Northern Cape</option>
-        </select>
-      </div>
-    </div>
-    <div class="field"><label>Delivery Note</label><input type="text" id="oNote" placeholder="e.g. Leave at gate, buzz unit 4"/></div>
-
-    <!-- Payment method -->
-    <div class="pd-section-title">💳 How would you like to pay?</div>
-    <div class="wa-notice">📲 After payment, your order details are sent to us instantly on WhatsApp so we can pack &amp; dispatch right away.</div>
-    <div class="pm-grid">
-      <div class="pm-card selected" data-method="cc" onclick="selectPaymentMethod('cc')">
-        <div class="pm-icon">💳</div>
-        <div class="pm-name">Credit / Debit Card</div>
-      </div>
-      <div class="pm-card" data-method="ef" onclick="selectPaymentMethod('ef')">
-        <div class="pm-icon">🏦</div>
-        <div class="pm-name">Instant EFT</div>
-      </div>
-      <div class="pm-card" data-method="sc" onclick="selectPaymentMethod('sc')">
-        <div class="pm-icon">📱</div>
-        <div class="pm-name">SnapScan</div>
-      </div>
-      <div class="pm-card" data-method="zp" onclick="selectPaymentMethod('zp')">
-        <div class="pm-icon">⚡</div>
-        <div class="pm-name">Zapper</div>
-      </div>
-      <div class="pm-card" data-method="mp" onclick="selectPaymentMethod('mp')">
-        <div class="pm-icon">💰</div>
-        <div class="pm-name">Mobicred</div>
-      </div>
-      <div class="pm-card" data-method="gp" onclick="selectPaymentMethod('gp')">
-        <div class="pm-icon">🔵</div>
-        <div class="pm-name">Google Pay</div>
-      </div>
-    </div>
-
-    <div class="pd-page-scroll-spacer"></div>
-  </div>
-
-  <!-- Fixed bottom pay bar -->
-  <div class="pd-total-bar" id="pdTotalBar">
-    <div class="pd-total-info">
-      <div class="pd-total-lbl">Total to pay</div>
-      <div class="pd-total-amt" id="pdTotalAmt">R0</div>
-    </div>
-    <button class="pd-order-btn" onclick="submitProductOrder()">Complete Order →</button>
-  </div>
-</section>
-
 <section class="page" id="page-account">
   <div class="account-card">
     <div class="wrap">
@@ -1100,24 +897,15 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
       <button class="pf-pay-btn" onclick="submitToPayfast()"><span>Pay with PayFast</span><span id="pfTotalBtn">R0.00</span></button>
       <div class="pf-secure">🔒 Secured by PayFast · Google Pay · Apple Pay · Card · EFT</div>
       <form id="payfastForm" action="https://www.payfast.co.za/eng/process" method="POST" style="display:none">
-        <input type="hidden" name="merchant_id"  id="pf_merchant_id"  value="YOUR_MERCHANT_ID"/>
+        <input type="hidden" name="merchant_id" id="pf_merchant_id" value="YOUR_MERCHANT_ID"/>
         <input type="hidden" name="merchant_key" id="pf_merchant_key" value="YOUR_MERCHANT_KEY"/>
-        <input type="hidden" name="return_url"   value="https://YOUR-SITE.netlify.app/thank-you"/>
-        <input type="hidden" name="cancel_url"   value="https://YOUR-SITE.netlify.app"/>
-        <input type="hidden" name="notify_url"   value="https://YOUR-SITE.netlify.app/.netlify/functions/payfast-itn"/>
-        <input type="hidden" name="amount"       id="pf_amount"       value="0"/>
-        <input type="hidden" name="item_name"    id="pf_item_name"    value="PawSome Order"/>
-        <input type="hidden" name="m_payment_id" id="pf_order_id"     value=""/>
-        <input type="hidden" name="name_first"   id="pf_first"        value=""/>
-        <input type="hidden" name="name_last"    id="pf_last"         value=""/>
-        <input type="hidden" name="email_address" id="pf_email"       value=""/>
-        <input type="hidden" name="payment_method" id="pf_payment_method" value="cc"/>
-        <!-- Order details sent to our serverless function via PayFast ITN -->
-        <input type="hidden" name="custom_str1"  id="pf_custom1"  value=""/> <!-- product line -->
-        <input type="hidden" name="custom_str2"  id="pf_custom2"  value=""/> <!-- customer name/phone/email -->
-        <input type="hidden" name="custom_str3"  id="pf_custom3"  value=""/> <!-- street + suburb + postal -->
-        <input type="hidden" name="custom_str4"  id="pf_custom4"  value=""/> <!-- city + province -->
-        <input type="hidden" name="custom_str5"  id="pf_custom5"  value=""/> <!-- note + payment method -->
+        <input type="hidden" name="return_url" value="https://pawsome.co.za/thank-you"/>
+        <input type="hidden" name="cancel_url" value="https://pawsome.co.za/cart"/>
+        <input type="hidden" name="amount" id="pf_amount" value="0"/>
+        <input type="hidden" name="item_name" value="PawSome Order"/>
+        <input type="hidden" name="name_first" id="pf_first" value=""/>
+        <input type="hidden" name="name_last" id="pf_last" value=""/>
+        <input type="hidden" name="email_address" id="pf_email" value=""/>
       </form>
     </div>
   </div>
@@ -1131,8 +919,8 @@ const FALLBACK_PRODUCTS = [{"id": 25, "name": "Montego Classic Adult 15kg", "bra
 let products = FALLBACK_PRODUCTS.slice();
 const SUBCATS = {"dog": [["food", "Food"], ["treats", "Treats"], ["toys", "Toys"], ["beds", "Beds"], ["health", "Health"]], "cat": [["food", "Food"], ["treats", "Treats"], ["toys", "Toys"], ["litter", "Litter"]], "bird": [["food", "Food"], ["treats", "Treats"], ["toys", "Toys"], ["health", "Health"]], "fish": [["food", "Food"], ["tanks", "Tanks"], ["health", "Health"]], "small": [["food", "Food"], ["toys", "Toys"]]};
 const KEYWORDS = {"dog food": {"cat": "dog", "subcat": "food"}, "kibble": {"cat": "dog", "subcat": "food"}, "dry food": {"cat": "dog", "subcat": "food"}, "puppy food": {"cat": "dog", "subcat": "food"}, "montego": {"cat": "dog", "subcat": "food"}, "royal canin": {"cat": "dog", "subcat": "food"}, "hills": {"cat": "dog", "subcat": "food"}, "hill's": {"cat": "dog", "subcat": "food"}, "dog treats": {"cat": "dog", "subcat": "treats"}, "chews": {"cat": "dog", "subcat": "treats"}, "dentastix": {"cat": "dog", "subcat": "treats"}, "pedigree": {"cat": "dog", "subcat": "treats"}, "dog toys": {"cat": "dog", "subcat": "toys"}, "puzzle feeder": {"cat": "dog", "subcat": "toys"}, "kong": {"cat": "dog", "subcat": "toys"}, "dog bed": {"cat": "dog", "subcat": "beds"}, "dog beds": {"cat": "dog", "subcat": "beds"}, "bravecto": {"cat": "dog", "subcat": "health"}, "flea": {"cat": "dog", "subcat": "health"}, "tick": {"cat": "dog", "subcat": "health"}, "cat food": {"cat": "cat", "subcat": "food"}, "whiskas": {"cat": "cat", "subcat": "food"}, "cat treats": {"cat": "cat", "subcat": "treats"}, "cat toys": {"cat": "cat", "subcat": "toys"}, "scratching": {"cat": "cat", "subcat": "toys"}, "scratcher": {"cat": "cat", "subcat": "toys"}, "litter": {"cat": "cat", "subcat": "litter"}, "litter box": {"cat": "cat", "subcat": "litter"}, "catsan": {"cat": "cat", "subcat": "litter"}, "feather wand": {"cat": "cat", "subcat": "toys"}, "bird food": {"cat": "bird", "subcat": "food"}, "bird seed": {"cat": "bird", "subcat": "food"}, "seeds": {"cat": "bird", "subcat": "food"}, "vitapol": {"cat": "bird", "subcat": "food"}, "swing": {"cat": "bird", "subcat": "toys"}, "cage": {"cat": "bird", "subcat": "toys"}, "mineral block": {"cat": "bird", "subcat": "treats"}, "cuttlebone": {"cat": "bird", "subcat": "health"}, "fish food": {"cat": "fish", "subcat": "food"}, "fish flakes": {"cat": "fish", "subcat": "food"}, "tetra": {"cat": "fish", "subcat": "food"}, "fish tank": {"cat": "fish", "subcat": "tanks"}, "aquarium": {"cat": "fish", "subcat": "tanks"}, "tank": {"cat": "fish", "subcat": "tanks"}, "aqua one": {"cat": "fish", "subcat": "tanks"}, "water conditioner": {"cat": "fish", "subcat": "health"}, "hamster": {"cat": "small", "subcat": "toys"}, "hay": {"cat": "small", "subcat": "food"}, "oxbow": {"cat": "small", "subcat": "food"}, "rabbit food": {"cat": "small", "subcat": "food"}, "guinea pig": {"cat": "small", "subcat": "food"}, "dogs": {"cat": "dog", "subcat": null}, "cats": {"cat": "cat", "subcat": null}, "birds": {"cat": "bird", "subcat": null}, "fish tanks": {"cat": "fish", "subcat": null}, "small pets": {"cat": "small", "subcat": null}, "indoor cat": {"cat": "cat", "subcat": "food"}, "self cleaning": {"cat": "cat", "subcat": "litter"}, "orthopedic": {"cat": "dog", "subcat": "beds"}, "memory foam": {"cat": "dog", "subcat": "beds"}, "chew toy": {"cat": "dog", "subcat": "toys"}, "rubber toy": {"cat": "dog", "subcat": "toys"}, "parakeet": {"cat": "bird", "subcat": "food"}, "budgie": {"cat": "bird", "subcat": "food"}, "parrot": {"cat": "bird", "subcat": "treats"}, "tropical fish": {"cat": "fish", "subcat": "food"}, "30l tank": {"cat": "fish", "subcat": "tanks"}, "starter kit": {"cat": "fish", "subcat": "tanks"}, "rabbit": {"cat": "small", "subcat": "food"}, "chinchilla": {"cat": "small", "subcat": "food"}, "timothy hay": {"cat": "small", "subcat": "food"}, "silent wheel": {"cat": "small", "subcat": "toys"}, "flea and tick": {"cat": "dog", "subcat": "health"}};
-const TIKTOK = [{"name": "Thandi M.", "gift": "Montego 15kg \u2192 Wollies", "icon": "\ud83d\udc36"}, {"name": "Riaan B.", "gift": "Cat tree \u2192 SPCA Tshwane", "icon": "\ud83d\udc31"}, {"name": "Naledi K.", "gift": "Royal Canin \u2192 Wollies", "icon": "\ud83d\udc36"}, {"name": "Pieter V.", "gift": "Litter box \u2192 SPCA", "icon": "\ud83d\udc31"}, {"name": "Zanele D.", "gift": "KONG bundle \u2192 Wollies", "icon": "\ud83d\udc36"}, {"name": "Sipho R.", "gift": "Hill's Puppy \u2192 Wollies", "icon": "\ud83d\udc36"}];
-const REVIEWS = [{"name": "Amahle N.", "loc": "Pretoria", "stars": 5, "text": "Ordered Bravecto and gifted a second one to Wollies. Got the TikTok the next day - my dog's twin was so happy. I'm hooked on this model."}, {"name": "Johan S.", "loc": "Centurion", "stars": 5, "text": "Prices beat the usual pet shops and I love that I can see exactly where my donation went. Royal Canin arrived in 2 days."}, {"name": "Lerato P.", "loc": "Midrand", "stars": 4, "text": "Great range for my cats. Wish there were more small pet options but the shelter donation feature won me over completely."}, {"name": "Werner K.", "loc": "Pretoria", "stars": 5, "text": "Watching the SPCA handover videos is honestly the best part of my day. Proper, transparent giving - not just a marketing line."}];
+const TIKTOK = [{"name":"Nomsa T.","gift":"Epol Boerewors 20kg → Wollies","icon":"🐕"},{"name":"Zanele D.","gift":"Montego Classic 10kg → Wollies","icon":"🐕"},{"name":"Priya N.","gift":"Epol Cat Food 4kg → SPCA","icon":"🐱"},{"name":"Johan V.","gift":"Husky Chicken 6-pack → Wollies","icon":"🐕"},{"name":"Riaan B.","gift":"Canine Cuisine 6kg → SPCA","icon":"🐕"},{"name":"Sipho R.","gift":"Whiskas Pouches 12pk → SPCA","icon":"🐱"}];
+const REVIEWS = [{"name":"Nomsa T.","loc":"Pretoria","stars":5,"text":"Ordered Epol Boerewors for my two dogs and donated a bag to Wollies. They posted the TikTok the same day — those rescue dogs were so happy. I'm ordering every month from now on!"},{"name":"Johan V.","loc":"Centurion","stars":5,"text":"Prices are better than my local pet shop and the Montego Classic arrived next day. Exactly the same quality I always buy. Love that I can support a shelter at the same time."},{"name":"Priya N.","loc":"Johannesburg","stars":5,"text":"My two cats go crazy for the Whiskas pouches. Added a donation to the SPCA at checkout — literally two taps. The site is clean, simple, and the delivery was fast."},{"name":"Riaan B.","loc":"Boksburg","stars":4,"text":"Husky Chicken Chunks are my Boerboel's absolute favourite. Good prices and fast delivery. Only wish there were more brands but what's here is exactly what I need."},{"name":"Zanele D.","loc":"Midrand","stars":5,"text":"I rescued my dog last year so giving back to shelters means everything to me. The checkout is smooth and the WhatsApp order update was a really nice touch. Will keep coming back!"},{"name":"Werner K.","loc":"Cape Town","stars":5,"text":"Was sceptical ordering pet food online but the Canine Cuisine arrived perfectly packed. My ridgeback approved immediately. The shelter donation feature is why I'll stay loyal to PawSome."}];
 const CATS = [
   {v:"dog",icon:"🐶",label:"Dogs"},
   {v:"cat",icon:"🐱",label:"Cats"},
@@ -1308,22 +1096,20 @@ function productCard(p){
   const stars = "★★★★★".slice(0, Math.round(p.rating));
   const badge = p.badge ? '<span class="product-badge '+p.badge+'">'+p.badge+'</span>' : "";
   const shelterFlag = p.shelter ? '<span class="shelter-flag" title="Eligible for shelter gift">💚</span>' : "";
-  const shelterPill = p.shelter ? '<button class="card-shelter-pill" onclick="event.stopPropagation();openShelterOnDetail('+p.id+')" title="Give to a shelter">💚 Give</button>' : "";
   const origPrice = p.orig ? '<span class="orig">R'+p.orig+'</span>' : "";
   const imgPath = p.image || ("images/products/"+p.id+".jpg");
   const safeName = (p.name||"").replace(/"/g,"&quot;");
-  return '<div class="product-card" onclick="openProductDetail('+p.id+')">' +
+  return '<div class="product-card">' +
     '<div class="product-media">'+badge+shelterFlag+
       '<img class="product-img" src="'+imgPath+'" alt="'+safeName+'" loading="lazy" onerror="this.parentElement.classList.add(\'no-image\')"/>' +
       '<div class="product-placeholder"><span class="ph-icon">'+p.icon+'</span><span>Photo coming soon</span></div>' +
-      shelterPill+
     '</div>' +
     '<div class="product-info">' +
       '<div class="product-brand">'+p.brand+'</div>' +
       '<div class="product-name">'+p.name+'</div>' +
       '<div class="product-rating"><span class="stars">'+stars+'</span><span>'+p.rating+' ('+p.rev+')</span></div>' +
       '<div class="product-price-row"><div class="product-price">R'+p.price+origPrice+'</div>' +
-      '<div class="view-arrow">›</div></div>' +
+      '<button class="add-btn" onclick="addToCart('+p.id+')">+</button></div>' +
     '</div></div>';
 }
 
@@ -1416,272 +1202,11 @@ function submitToPayfast(){
   document.getElementById("pf_last").value = document.getElementById("pfLastName").value.trim();
   document.getElementById("pf_email").value = email;
   document.getElementById("pf_amount").value = t.total.toFixed(2);
-  showToast("Redirecting to payment…");
+  showToast("Redirecting to PayFast…");
   setTimeout(function(){ document.getElementById("payfastForm").submit(); }, 600);
 }
 
-/* ============ PRODUCT DETAIL PAGE ============ */
-var currentProductId = null;
-var pdQtyVal = 1;
-var selectedPaymentMethod = "cc";
-var shelterTabVal = "buy";
-
-var PM_LABELS = {cc:"Credit/Debit Card", ef:"Instant EFT", sc:"SnapScan", zp:"Zapper", mp:"Mobicred", gp:"Google Pay"};
-
-function openProductDetail(id){
-  currentProductId = id;
-  pdQtyVal = 1;
-  selectedPaymentMethod = "cc";
-  var p = products.find(function(x){ return x.id===id; });
-  if(!p) return;
-
-  // Image
-  var imgPath = p.image || ("images/products/"+p.id+".jpg");
-  var imgEl = document.getElementById("pdImage");
-  imgEl.innerHTML = '<img src="'+imgPath+'" alt="'+p.name.replace(/"/g,"&quot;")+'" onerror="this.parentElement.innerHTML=\'<div class=pd-hero-icon>'+p.icon+'</div>\'"/>';
-
-  // Info
-  document.getElementById("pdBrand").textContent = p.brand;
-  document.getElementById("pdName").textContent = p.name;
-  document.getElementById("pdBadgeWrap").innerHTML = p.badge ? '<span class="product-badge '+p.badge+'">'+p.badge+'</span>' : "";
-  document.getElementById("pdStars").textContent = "★★★★★".slice(0, Math.round(p.rating));
-  document.getElementById("pdRevCount").textContent = p.rating+" ("+p.rev+" reviews)";
-  document.getElementById("pdPrice").textContent = "R"+p.price;
-  document.getElementById("pdOrigPrice").textContent = p.orig ? "R"+p.orig : "";
-
-  // Description
-  document.getElementById("pdDesc").textContent = p.desc || "";
-
-  // Qty
-  document.getElementById("pdQtyDisplay").textContent = 1;
-  updatePdTotal();
-
-  // Shelter
-  var shelterBox = document.getElementById("pdShelterBox");
-  shelterBox.style.display = p.shelter ? "" : "none";
-  if(p.shelter){
-    document.getElementById("shelterPriceDisplay").textContent = p.price;
-    setShelterTab("buy");
-  }
-
-  // Payment method reset
-  document.querySelectorAll(".pm-card").forEach(function(c){ c.classList.remove("selected"); });
-  var ccCard = document.querySelector(".pm-card[data-method='cc']");
-  if(ccCard) ccCard.classList.add("selected");
-
-  // Show total bar
-  document.getElementById("pdTotalBar").classList.add("visible");
-
-  goPage("product");
-}
-
-function openShelterOnDetail(id){
-  openProductDetail(id);
-  setTimeout(function(){
-    var box = document.getElementById("pdShelterBox");
-    if(box) box.scrollIntoView({behavior:"smooth", block:"start"});
-  }, 350);
-}
-
-function pdChangeQty(delta){
-  pdQtyVal = Math.max(1, pdQtyVal + delta);
-  document.getElementById("pdQtyDisplay").textContent = pdQtyVal;
-  updatePdTotal();
-}
-
-function updatePdTotal(){
-  var p = products.find(function(x){ return x.id===currentProductId; });
-  if(!p) return;
-  var total = p.price * pdQtyVal;
-  document.getElementById("pdTotalAmt").textContent = "R"+total;
-}
-
-function selectPaymentMethod(method){
-  selectedPaymentMethod = method;
-  document.querySelectorAll(".pm-card").forEach(function(c){
-    c.classList.toggle("selected", c.dataset.method===method);
-  });
-}
-
-function setShelterTab(tab){
-  shelterTabVal = tab;
-  document.getElementById("shelterTabBuy").classList.toggle("active", tab==="buy");
-  document.getElementById("shelterTabDonate").classList.toggle("active", tab==="donate");
-  document.getElementById("shelterBuyPanel").style.display = tab==="buy" ? "" : "none";
-  document.getElementById("shelterDonatePanel").style.display = tab==="donate" ? "" : "none";
-}
-
-function _pfSubmit(first, last, email, amount, method, orderData){
-  var orderId = "PS"+Date.now().toString().slice(-6);
-  document.getElementById("pf_first").value  = first;
-  document.getElementById("pf_last").value   = last;
-  document.getElementById("pf_email").value  = email;
-  document.getElementById("pf_amount").value = parseFloat(amount).toFixed(2);
-  document.getElementById("pf_payment_method").value = method || "cc";
-  document.getElementById("pf_order_id").value = orderId;
-  if(orderData){
-    document.getElementById("pf_item_name").value = (orderData.product||"PawSome Order").slice(0,100);
-    document.getElementById("pf_custom1").value   = (orderData.product||"").slice(0,255);
-    document.getElementById("pf_custom2").value   = (orderData.customer||"").slice(0,255);
-    document.getElementById("pf_custom3").value   = (orderData.addr1||"").slice(0,255);
-    document.getElementById("pf_custom4").value   = (orderData.addr2||"").slice(0,255);
-    document.getElementById("pf_custom5").value   = (orderData.extra||"").slice(0,255);
-  }
-  document.getElementById("payfastForm").submit();
-}
-
-function _waOpen(msg){
-  window.open("https://wa.me/27716430290?text="+encodeURIComponent(msg), "_blank");
-}
-
-function submitProductOrder(){
-  var p = products.find(function(x){ return x.id===currentProductId; });
-  if(!p) return;
-
-  var name   = (document.getElementById("oName").value||"").trim();
-  var phone  = (document.getElementById("oPhone").value||"").trim();
-  var email  = (document.getElementById("oEmail").value||"").trim();
-  var addr   = (document.getElementById("oAddr").value||"").trim();
-  var suburb = (document.getElementById("oSuburb").value||"").trim();
-  var postal = (document.getElementById("oPostal").value||"").trim();
-  var city   = (document.getElementById("oCity").value||"").trim();
-  var prov   = (document.getElementById("oProvince").value||"").trim();
-  var note   = (document.getElementById("oNote").value||"").trim();
-
-  if(!name || !phone || !email){ showToast("Please fill in your name, phone & email"); return; }
-  if(!addr || !suburb || !city || !postal){ showToast("Please fill in your full delivery address"); return; }
-
-  var total = p.price * pdQtyVal;
-  var orderNum = "PS"+Date.now().toString().slice(-6);
-  var pmLabel = PM_LABELS[selectedPaymentMethod] || selectedPaymentMethod;
-  var nameParts = name.split(" ");
-  var firstName = nameParts[0];
-  var lastName = nameParts.slice(1).join(" ") || "-";
-
-  var waMsg =
-    "🐾 *NEW ORDER — "+orderNum+"*\n"+
-    "━━━━━━━━━━━━━━━━━━━━\n\n"+
-    "📦 *ORDER FROM TAKEALOT:*\n"+
-    "  • "+p.name+"  x"+pdQtyVal+"  —  R"+total+"\n"+
-    (p.takealotUrl ? "  🔗 "+p.takealotUrl+"\n" : "")+
-    "\n💳 *Payment method:* "+pmLabel+"\n"+
-    "💰 *Total paid: R"+total+"*\n"+
-    "\n👤 *Customer:*\n"+
-    "  "+name+"\n"+
-    "  📧 "+email+"\n"+
-    "  📱 "+phone+"\n"+
-    "\n📍 *SHIP TO:*\n"+
-    "  "+name+"\n"+
-    "  "+addr+"\n"+
-    "  "+suburb+", "+postal+"\n"+
-    "  "+city+(prov ? ", "+prov : "")+"\n"+
-    (note ? "\n📝 Note: "+note+"\n" : "")+
-    "\n━━━━━━━━━━━━━━━━━━━━\n"+
-    "⏱️ Order from Takealot & dispatch ASAP 🚀";
-
-  _waOpen(waMsg);
-
-  // Order data passed through PayFast custom fields → received by our serverless function
-  var orderData = {
-    product:  "• "+p.name+"  x"+pdQtyVal+"  —  R"+total+(p.takealotUrl ? "\\n  🔗 "+p.takealotUrl : ""),
-    customer: name+"\\n  📧 "+email+"\\n  📱 "+phone,
-    addr1:    name+"\\n  "+addr+"\\n  "+suburb+", "+postal,
-    addr2:    city+(prov ? ", "+prov : ""),
-    extra:    (note ? "📝 Note: "+note+"\\n" : "")+"💳 "+pmLabel
-  };
-
-  showToast("📲 Order sent via WhatsApp! Taking you to payment…");
-  setTimeout(function(){ _pfSubmit(firstName, lastName, email, total, selectedPaymentMethod, orderData); }, 900);
-}
-
-function submitShelterAction(){
-  var p = products.find(function(x){ return x.id===currentProductId; });
-  if(!p) return;
-
-  if(shelterTabVal==="buy"){
-    var shelter    = (document.getElementById("shelterOrg").value||"").trim();
-    var donorName  = (document.getElementById("shelterDonorName").value||"").trim() || "Anonymous";
-    var donorEmail = (document.getElementById("shelterDonorEmail").value||"").trim();
-    var donorPhone = (document.getElementById("shelterDonorPhone").value||"").trim();
-
-    if(!donorEmail || !donorPhone){ showToast("Please fill in your email & phone"); return; }
-
-    var orderNum = "SH"+Date.now().toString().slice(-6);
-    var nameParts = donorName.split(" ");
-
-    var waMsg =
-      "💚 *SHELTER GIFT — "+orderNum+"*\n"+
-      "━━━━━━━━━━━━━━━━━━━━\n\n"+
-      "📦 *ORDER FOR SHELTER FROM TAKEALOT:*\n"+
-      "  • "+p.name+"  —  R"+p.price+"\n"+
-      (p.takealotUrl ? "  🔗 "+p.takealotUrl+"\n" : "")+
-      "\n🏠 *Deliver to:* "+shelter+"\n"+
-      "🎬 *TikTok credit:* "+donorName+"\n"+
-      "\n👤 *Donor:*\n"+
-      "  "+donorName+"\n"+
-      "  📧 "+donorEmail+"\n"+
-      "  📱 "+donorPhone+"\n"+
-      "\n━━━━━━━━━━━━━━━━━━━━\n"+
-      "💰 *Amount: R"+p.price+"*\n"+
-      "⏱️ Order from Takealot & deliver to "+shelter+" ASAP 🚀🎬";
-
-    _waOpen(waMsg);
-    showToast("💚 Shelter gift! Going to payment…");
-    var shelterData = {
-      product:  "💚 SHELTER GIFT\\n  • "+p.name+"  —  R"+p.price+(p.takealotUrl ? "\\n  🔗 "+p.takealotUrl : ""),
-      customer: donorName+"\\n  📧 "+donorEmail+"\\n  📱 "+donorPhone,
-      addr1:    "🏠 Deliver to: "+shelter,
-      addr2:    "🎬 TikTok credit: "+donorName,
-      extra:    ""
-    };
-    setTimeout(function(){ _pfSubmit(nameParts[0], nameParts.slice(1).join(" ")||"-", donorEmail, p.price, "cc", shelterData); }, 900);
-
-  } else {
-    var donateAmt  = parseFloat((document.getElementById("donateAmt").value||"0"));
-    var donShelt   = (document.getElementById("donateOrg").value||"").trim();
-    var dName      = (document.getElementById("donateDonorName").value||"").trim() || "Anonymous";
-    var dEmail     = (document.getElementById("donateDonorEmail").value||"").trim();
-    var dPhone     = (document.getElementById("donateDonorPhone").value||"").trim();
-
-    if(!donateAmt || donateAmt < 10){ showToast("Minimum donation is R10"); return; }
-    if(!dEmail || !dPhone){ showToast("Please fill in your email & phone"); return; }
-
-    var donNum = "DON"+Date.now().toString().slice(-6);
-    var dParts = dName.split(" ");
-
-    var waMsg2 =
-      "💚 *CASH DONATION — "+donNum+"*\n"+
-      "━━━━━━━━━━━━━━━━━━━━\n\n"+
-      "💰 *Donation amount: R"+donateAmt.toFixed(2)+"*\n"+
-      "🏠 *Shelter:* "+donShelt+"\n"+
-      "🎬 *TikTok credit:* "+dName+"\n"+
-      "\n👤 *Donor:*\n"+
-      "  "+dName+"\n"+
-      "  📧 "+dEmail+"\n"+
-      "  📱 "+dPhone+"\n"+
-      "\n━━━━━━━━━━━━━━━━━━━━\n"+
-      "⏱️ Process donation ASAP — thank you! 🙏";
-
-    _waOpen(waMsg2);
-    showToast("💚 Donating R"+donateAmt.toFixed(2)+"…");
-    var donData = {
-      product:  "💚 CASH DONATION: R"+donateAmt.toFixed(2),
-      customer: dName+"\\n  📧 "+dEmail+"\\n  📱 "+dPhone,
-      addr1:    "🏠 To: "+donShelt,
-      addr2:    "🎬 TikTok credit: "+dName,
-      extra:    ""
-    };
-    setTimeout(function(){ _pfSubmit(dParts[0], dParts.slice(1).join(" ")||"-", dEmail, donateAmt, "cc", donData); }, 900);
-  }
-}
-
-/* When leaving product page, hide the total bar */
-var _origGoPage = goPage;
-goPage = function(page){
-  _origGoPage(page);
-  var bar = document.getElementById("pdTotalBar");
-  if(bar) bar.classList.toggle("visible", page==="product");
-};
+/* ============ LOYALTY ============ */
 function joinLoyalty(){
   const email = document.getElementById("loyaltyEmail").value.trim();
   if(!email || !email.includes("@")){ showToast("Please enter a valid email"); return; }
