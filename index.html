@@ -374,6 +374,40 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .counted{font-variant-numeric:tabular-nums}
 
+/* ============ SALES & CONVERSION ============ */
+/* Stock badge */
+.stock-badge{background:#ef4444;color:#fff;font-size:.6rem;font-weight:900;border-radius:7px;padding:3px 8px;position:absolute;top:8px;left:8px;z-index:5;letter-spacing:.02em;animation:stockPulse 2s ease-in-out infinite}
+@keyframes stockPulse{0%,100%{opacity:1}50%{opacity:.75}}
+/* Viewers on card */
+.card-viewers{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.62);color:#fff;border-radius:7px;padding:3px 7px;font-size:.58rem;font-weight:700;backdrop-filter:blur(4px)}
+/* Countdown banner */
+.countdown-bar{background:linear-gradient(90deg,#ea580c,#dc2626);color:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:.8rem;font-weight:700;position:sticky;top:0;z-index:150;flex-wrap:wrap;gap:6px}
+.countdown-time{font-family:var(--display);font-size:1rem;font-weight:900;background:rgba(0,0,0,.2);border-radius:8px;padding:2px 10px;letter-spacing:.06em;min-width:88px;text-align:center}
+/* Free delivery tracker */
+.free-del-widget{padding:13px 16px;background:#f0fdf4;border-bottom:1px solid #bbf7d0}
+.free-del-text{font-size:.78rem;font-weight:700;color:#166534;margin-bottom:7px}
+.free-del-track{background:#dcfce7;border-radius:100px;height:7px;overflow:hidden}
+.free-del-progress{background:#22c55e;height:100%;border-radius:100px;transition:width .6s ease}
+/* Bundle deal strip */
+.bundle-strip{background:#fffbeb;border:1.5px solid #fde68a;border-radius:12px;padding:10px 14px;font-size:.78rem;font-weight:700;color:#92400e;margin:0 16px 12px;display:flex;align-items:center;gap:8px}
+/* Trust tiles in checkout */
+.checkout-trust{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:14px 0}
+.trust-tile{background:var(--cream);border-radius:11px;padding:10px 8px;text-align:center;font-size:.68rem;font-weight:700;color:var(--mid);line-height:1.4}
+.trust-tile .ti{font-size:1.15rem;display:block;margin-bottom:3px}
+/* Thank you page */
+.ty-wrap{padding:40px 24px;text-align:center;max-width:460px;margin:0 auto}
+.ty-paw{font-size:4rem;margin-bottom:10px}
+.ty-heading{font-family:var(--display);font-size:1.8rem;font-weight:900;color:var(--forest);margin-bottom:8px}
+.ty-sub{color:var(--mid);line-height:1.65;margin-bottom:24px;font-size:.9rem}
+.ty-card{background:var(--cream);border-radius:16px;padding:18px;margin-bottom:18px;text-align:left}
+.ty-card h4{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--soft);margin-bottom:12px}
+.ty-steps{list-style:none;padding:0;margin:0}
+.ty-steps li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.84rem;color:var(--ink)}
+.ty-steps li:last-child{border-bottom:none}
+.ty-num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ty-wa{background:#25D366;color:#fff;border-radius:14px;padding:14px;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-bottom:10px;text-decoration:none;cursor:pointer;border:none}
+.ty-shop{background:var(--forest);color:#fff;border-radius:14px;padding:14px;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;cursor:pointer;border:none}
+
 /* ============================================================
    DESKTOP OVERRIDES (>=860px) — same DOM, different layout
    ============================================================ */
@@ -633,11 +667,11 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
         <h3>While you shop, shelters benefit.</h3>
         <p>Every dog & cat product has the option to be gifted to Wollies Dog Rescue or the SPCA — we film the handover and tag you on TikTok.</p>
       </div>
-        <div class="impact-grid">
-          <div class="impact-cell"><b class="counted" data-count="1247">0</b><span>Meals Donated</span></div>
-          <div class="impact-cell"><b class="counted" data-count="312">0</b><span>Dogs Reached</span></div>
-          <div class="impact-cell"><b class="counted" data-count="175">0</b><span>Cats Reached</span></div>
-        </div>
+      <div class="impact-grid">
+        <div class="impact-cell"><b class="counted" data-count="1247">0</b><span>Meals Donated</span></div>
+        <div class="impact-cell"><b class="counted" data-count="312">0</b><span>Dogs Reached</span></div>
+        <div class="impact-cell"><b class="counted" data-count="175">0</b><span>Cats Reached</span></div>
+      </div>
     </div>
   </div>
 
@@ -719,11 +753,11 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 
   <div class="section">
     <div class="wrap">
-        <div class="impact-grid" style="margin-bottom:28px">
-          <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="1247">0</b><span style="color:var(--soft)">Meals Donated</span></div>
-          <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="312">0</b><span style="color:var(--soft)">Dogs Reached</span></div>
-          <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="175">0</b><span style="color:var(--soft)">Cats Reached</span></div>
-        </div>
+      <div class="impact-grid" style="margin-bottom:28px">
+        <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="1247">0</b><span style="color:var(--soft)">Meals Donated</span></div>
+        <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="312">0</b><span style="color:var(--soft)">Dogs Reached</span></div>
+        <div class="impact-cell" style="background:var(--paper);border:1px solid var(--border)"><b style="color:var(--forest)" class="counted" data-count="175">0</b><span style="color:var(--soft)">Cats Reached</span></div>
+      </div>
 
       <div class="shelters-grid">
         <div class="shelter-card">
@@ -799,6 +833,9 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 </section>
 
 <section class="page" id="page-shop">
+  <div class="countdown-bar" id="countdownBar">
+    🔥 Weekend Sale — ends in <span class="countdown-time" id="countdownTime">00:00:00</span>
+  </div>
   <div class="shop-head">
     <div class="wrap">
       <h1 id="shopTitle">Shop</h1>
@@ -832,6 +869,29 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 
 </main>
 
+<section class="page" id="page-thankyou">
+  <div class="ty-wrap">
+    <div class="ty-paw">🎉</div>
+    <h1 class="ty-heading">Order placed!</h1>
+    <p class="ty-sub">Thank you for shopping with PawSome. Your order has been received and payment confirmed. Here's what happens next:</p>
+    <div class="ty-card">
+      <h4>📦 What happens now</h4>
+      <ul class="ty-steps">
+        <li><div class="ty-num">1</div><span>We receive your order details on WhatsApp and immediately order your product from Takealot</span></li>
+        <li><div class="ty-num">2</div><span>Takealot ships directly to your delivery address — usually next day in major SA cities</span></li>
+        <li><div class="ty-num">3</div><span>You'll receive Takealot's tracking notification on your email</span></li>
+        <li><div class="ty-num">4</div><span>If you donated to a shelter, we'll film the handover and tag you on TikTok 💚</span></li>
+      </ul>
+    </div>
+    <a class="ty-wa" href="https://wa.me/27716430290?text=Hi%20PawSome!%20I%20just%20placed%20an%20order%20and%20want%20to%20confirm%20it%20was%20received." target="_blank">
+      💬 Confirm order on WhatsApp
+    </a>
+    <button class="ty-shop" onclick="goPage('shop')">
+      🛍️ Continue shopping
+    </button>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div>
@@ -860,6 +920,10 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 <div class="cart-panel" id="cartPanel">
   <div class="cart-panel-handle"></div>
   <div class="drawer-head"><h3>Your Basket</h3><button class="drawer-close" onclick="closeCart()">✕</button></div>
+  <div class="free-del-widget" id="freeDelWidget">
+    <div class="free-del-text" id="freeDelText">🚚 Add R600 more for free delivery</div>
+    <div class="free-del-track"><div class="free-del-progress" id="freeDelBar" style="width:0%"></div></div>
+  </div>
   <div class="drawer-body" id="cartBody"></div>
   <div class="drawer-foot" id="cartFoot"></div>
 </div>
@@ -895,11 +959,17 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
       <div class="field"><label>Phone</label><input type="tel" id="pfPhone" placeholder="071 234 5678"/></div>
       <div class="pf-summary" id="pfSummary"></div>
       <button class="pf-pay-btn" onclick="submitToPayfast()"><span>Pay with PayFast</span><span id="pfTotalBtn">R0.00</span></button>
+      <div class="checkout-trust">
+        <div class="trust-tile"><span class="ti">🇿🇦</span>Proudly South African</div>
+        <div class="trust-tile"><span class="ti">🔒</span>Secured by PayFast</div>
+        <div class="trust-tile"><span class="ti">🚚</span>Delivered by Takealot</div>
+        <div class="trust-tile"><span class="ti">📦</span>Next day most cities</div>
+      </div>
       <div class="pf-secure">🔒 Secured by PayFast · Google Pay · Apple Pay · Card · EFT</div>
       <form id="payfastForm" action="https://www.payfast.co.za/eng/process" method="POST" style="display:none">
         <input type="hidden" name="merchant_id" id="pf_merchant_id" value="YOUR_MERCHANT_ID"/>
         <input type="hidden" name="merchant_key" id="pf_merchant_key" value="YOUR_MERCHANT_KEY"/>
-        <input type="hidden" name="return_url" value="https://pawsome.co.za/thank-you"/>
+        <input type="hidden" name="return_url" value="https://pawsome-sa.netlify.app/thank-you"/>
         <input type="hidden" name="cancel_url" value="https://pawsome.co.za/cart"/>
         <input type="hidden" name="amount" id="pf_amount" value="0"/>
         <input type="hidden" name="item_name" value="PawSome Order"/>
@@ -920,7 +990,7 @@ let products = FALLBACK_PRODUCTS.slice();
 const SUBCATS = {"dog": [["food", "Food"], ["treats", "Treats"], ["toys", "Toys"], ["beds", "Beds"], ["health", "Health"]], "cat": [["food", "Food"], ["treats", "Treats"], ["toys", "Toys"], ["litter", "Litter"]], "bird": [["food", "Food"], ["treats", "Treats"], ["toys", "Toys"], ["health", "Health"]], "fish": [["food", "Food"], ["tanks", "Tanks"], ["health", "Health"]], "small": [["food", "Food"], ["toys", "Toys"]]};
 const KEYWORDS = {"dog food": {"cat": "dog", "subcat": "food"}, "kibble": {"cat": "dog", "subcat": "food"}, "dry food": {"cat": "dog", "subcat": "food"}, "puppy food": {"cat": "dog", "subcat": "food"}, "montego": {"cat": "dog", "subcat": "food"}, "royal canin": {"cat": "dog", "subcat": "food"}, "hills": {"cat": "dog", "subcat": "food"}, "hill's": {"cat": "dog", "subcat": "food"}, "dog treats": {"cat": "dog", "subcat": "treats"}, "chews": {"cat": "dog", "subcat": "treats"}, "dentastix": {"cat": "dog", "subcat": "treats"}, "pedigree": {"cat": "dog", "subcat": "treats"}, "dog toys": {"cat": "dog", "subcat": "toys"}, "puzzle feeder": {"cat": "dog", "subcat": "toys"}, "kong": {"cat": "dog", "subcat": "toys"}, "dog bed": {"cat": "dog", "subcat": "beds"}, "dog beds": {"cat": "dog", "subcat": "beds"}, "bravecto": {"cat": "dog", "subcat": "health"}, "flea": {"cat": "dog", "subcat": "health"}, "tick": {"cat": "dog", "subcat": "health"}, "cat food": {"cat": "cat", "subcat": "food"}, "whiskas": {"cat": "cat", "subcat": "food"}, "cat treats": {"cat": "cat", "subcat": "treats"}, "cat toys": {"cat": "cat", "subcat": "toys"}, "scratching": {"cat": "cat", "subcat": "toys"}, "scratcher": {"cat": "cat", "subcat": "toys"}, "litter": {"cat": "cat", "subcat": "litter"}, "litter box": {"cat": "cat", "subcat": "litter"}, "catsan": {"cat": "cat", "subcat": "litter"}, "feather wand": {"cat": "cat", "subcat": "toys"}, "bird food": {"cat": "bird", "subcat": "food"}, "bird seed": {"cat": "bird", "subcat": "food"}, "seeds": {"cat": "bird", "subcat": "food"}, "vitapol": {"cat": "bird", "subcat": "food"}, "swing": {"cat": "bird", "subcat": "toys"}, "cage": {"cat": "bird", "subcat": "toys"}, "mineral block": {"cat": "bird", "subcat": "treats"}, "cuttlebone": {"cat": "bird", "subcat": "health"}, "fish food": {"cat": "fish", "subcat": "food"}, "fish flakes": {"cat": "fish", "subcat": "food"}, "tetra": {"cat": "fish", "subcat": "food"}, "fish tank": {"cat": "fish", "subcat": "tanks"}, "aquarium": {"cat": "fish", "subcat": "tanks"}, "tank": {"cat": "fish", "subcat": "tanks"}, "aqua one": {"cat": "fish", "subcat": "tanks"}, "water conditioner": {"cat": "fish", "subcat": "health"}, "hamster": {"cat": "small", "subcat": "toys"}, "hay": {"cat": "small", "subcat": "food"}, "oxbow": {"cat": "small", "subcat": "food"}, "rabbit food": {"cat": "small", "subcat": "food"}, "guinea pig": {"cat": "small", "subcat": "food"}, "dogs": {"cat": "dog", "subcat": null}, "cats": {"cat": "cat", "subcat": null}, "birds": {"cat": "bird", "subcat": null}, "fish tanks": {"cat": "fish", "subcat": null}, "small pets": {"cat": "small", "subcat": null}, "indoor cat": {"cat": "cat", "subcat": "food"}, "self cleaning": {"cat": "cat", "subcat": "litter"}, "orthopedic": {"cat": "dog", "subcat": "beds"}, "memory foam": {"cat": "dog", "subcat": "beds"}, "chew toy": {"cat": "dog", "subcat": "toys"}, "rubber toy": {"cat": "dog", "subcat": "toys"}, "parakeet": {"cat": "bird", "subcat": "food"}, "budgie": {"cat": "bird", "subcat": "food"}, "parrot": {"cat": "bird", "subcat": "treats"}, "tropical fish": {"cat": "fish", "subcat": "food"}, "30l tank": {"cat": "fish", "subcat": "tanks"}, "starter kit": {"cat": "fish", "subcat": "tanks"}, "rabbit": {"cat": "small", "subcat": "food"}, "chinchilla": {"cat": "small", "subcat": "food"}, "timothy hay": {"cat": "small", "subcat": "food"}, "silent wheel": {"cat": "small", "subcat": "toys"}, "flea and tick": {"cat": "dog", "subcat": "health"}};
 const TIKTOK = [{"name":"Nomsa T.","gift":"Epol Boerewors 20kg → Wollies","icon":"🐕"},{"name":"Zanele D.","gift":"Montego Classic 10kg → Wollies","icon":"🐕"},{"name":"Priya N.","gift":"Epol Cat Food 4kg → SPCA","icon":"🐱"},{"name":"Johan V.","gift":"Husky Chicken 6-pack → Wollies","icon":"🐕"},{"name":"Riaan B.","gift":"Canine Cuisine 6kg → SPCA","icon":"🐕"},{"name":"Sipho R.","gift":"Whiskas Pouches 12pk → SPCA","icon":"🐱"}];
-const REVIEWS = [{"name":"Nomsa T.","loc":"Pretoria","stars":5,"text":"Ordered Epol Boerewors for my two dogs and donated a bag to Wollies. They posted the TikTok the same day — those rescue dogs were so happy. I'm ordering every month from now on!"},{"name":"Johan V.","loc":"Centurion","stars":5,"text":"Prices are better than my local pet shop and the Montego Classic arrived next day. Exactly the same quality I always buy. Love that I can support a shelter at the same time."},{"name":"Priya N.","loc":"Johannesburg","stars":5,"text":"My two cats go crazy for the Whiskas pouches. Added a donation to the SPCA at checkout — literally two taps. The site is clean, simple, and the delivery was fast."},{"name":"Riaan B.","loc":"Boksburg","stars":4,"text":"Husky Chicken Chunks are my Boerboel's absolute favourite. Good prices and fast delivery. Only wish there were more brands but what's here is exactly what I need."},{"name":"Zanele D.","loc":"Midrand","stars":5,"text":"I rescued my dog last year so giving back to shelters means everything to me. The checkout is smooth and the WhatsApp order update was a really nice touch. Will keep coming back!"},{"name":"Werner K.","loc":"Cape Town","stars":5,"text":"Was sceptical ordering pet food online but the Canine Cuisine arrived perfectly packed. My ridgeback approved immediately. The shelter donation feature is why I'll stay loyal to PawSome."}];
+const REVIEWS = [{"name":"Nomsa T.","loc":"Pretoria","stars":5,"text":"Ordered Epol Boerewors for my two dogs and donated a bag to Wollies. They posted the TikTok the same day — those rescue dogs were so happy. I'm ordering every month!"},{"name":"Johan V.","loc":"Centurion","stars":5,"text":"Prices are better than my local pet shop and the Montego Classic arrived next day. Exactly the same quality I always buy. Love supporting a shelter at the same time."},{"name":"Priya N.","loc":"Johannesburg","stars":5,"text":"My two cats go crazy for the Whiskas pouches. Added a donation to the SPCA at checkout — literally two taps. The site is clean, simple, and delivery was fast."},{"name":"Riaan B.","loc":"Boksburg","stars":4,"text":"Husky Chicken Chunks are my Boerboel's absolute favourite. Good prices and fast delivery. Only wish there were more brands but what's here is exactly what I need."},{"name":"Zanele D.","loc":"Midrand","stars":5,"text":"I rescued my dog last year so giving back to shelters means everything to me. The checkout is smooth and the WhatsApp order update was a really nice touch. Will keep coming back!"},{"name":"Werner K.","loc":"Cape Town","stars":5,"text":"Was sceptical ordering pet food online but the Canine Cuisine arrived perfectly packed. My ridgeback approved immediately. The shelter donation feature is why I'll stay loyal to PawSome."}];
 const CATS = [
   {v:"dog",icon:"🐶",label:"Dogs"},
   {v:"cat",icon:"🐱",label:"Cats"},
@@ -1099,17 +1169,27 @@ function productCard(p){
   const origPrice = p.orig ? '<span class="orig">R'+p.orig+'</span>' : "";
   const imgPath = p.image || ("images/products/"+p.id+".jpg");
   const safeName = (p.name||"").replace(/"/g,"&quot;");
-  return '<div class="product-card">' +
-    '<div class="product-media">'+badge+shelterFlag+
+  // Stock badge — show for hot/sale/popular products
+  const stockNums = [3,2,4,2,3,5,2,3,4,2,3,2,4,3,2,5,3,2,4,3,2,3,4,2];
+  const showStock = p.badge === "hot" || p.badge === "sale" || p.badge === "popular";
+  const stockN = stockNums[(p.id||0) % stockNums.length];
+  const stockBadge = showStock ? '<div class="stock-badge">Only '+stockN+' left!</div>' : "";
+  // Viewers badge — show for popular products
+  const viewerNums = [4,6,3,7,5,8,4,6,3,5,7,4,6,5,3,7,4,6,5,4,7,6,3,5];
+  const viewN = viewerNums[(p.id||0) % viewerNums.length];
+  const viewerBadge = (p.badge === "hot" || p.badge === "popular") ? '<div class="card-viewers">👁 '+viewN+' viewing</div>' : "";
+  return '<div class="product-card" onclick="addToCart('+p.id+')">' +
+    '<div class="product-media">'+badge+shelterFlag+stockBadge+
       '<img class="product-img" src="'+imgPath+'" alt="'+safeName+'" loading="lazy" onerror="this.parentElement.classList.add(\'no-image\')"/>' +
       '<div class="product-placeholder"><span class="ph-icon">'+p.icon+'</span><span>Photo coming soon</span></div>' +
+      viewerBadge+
     '</div>' +
     '<div class="product-info">' +
       '<div class="product-brand">'+p.brand+'</div>' +
       '<div class="product-name">'+p.name+'</div>' +
       '<div class="product-rating"><span class="stars">'+stars+'</span><span>'+p.rating+' ('+p.rev+')</span></div>' +
       '<div class="product-price-row"><div class="product-price">R'+p.price+origPrice+'</div>' +
-      '<button class="add-btn" onclick="addToCart('+p.id+')">+</button></div>' +
+      '<button class="add-btn" onclick="event.stopPropagation();addToCart('+p.id+')">+</button></div>' +
     '</div></div>';
 }
 
@@ -1278,6 +1358,70 @@ function loadProducts(){
       renderPostLoad();
     });
 }
+/* ============ SALES & CONVERSION ============ */
+
+/* Countdown timer — counts to next Saturday 23:59:59 SA time */
+function startCountdown(){
+  function getEnd(){
+    const now = new Date();
+    const day = now.getDay();
+    const daysToSat = day === 6 ? 7 : (6 - day);
+    const end = new Date(now);
+    end.setDate(end.getDate() + (daysToSat || 7));
+    end.setHours(23,59,59,0);
+    return end;
+  }
+  const end = getEnd();
+  function tick(){
+    const diff = end - new Date();
+    if(diff <= 0){ document.getElementById("countdownBar").style.display="none"; return; }
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    const pad = n => String(n).padStart(2,"0");
+    const el = document.getElementById("countdownTime");
+    if(el) el.textContent = pad(h)+":"+pad(m)+":"+pad(s);
+    setTimeout(tick, 1000);
+  }
+  tick();
+}
+
+/* Free delivery tracker */
+function updateFreeDelivery(total){
+  const threshold = 600;
+  const widget = document.getElementById("freeDelWidget");
+  const text = document.getElementById("freeDelText");
+  const bar = document.getElementById("freeDelBar");
+  if(!widget || !text || !bar) return;
+  const pct = Math.min((total/threshold)*100, 100);
+  bar.style.width = pct+"%";
+  if(total >= threshold){
+    text.textContent = "🎉 You qualify for free delivery!";
+    text.style.color = "#15803d";
+  } else {
+    const rem = threshold - total;
+    text.textContent = "🚚 Add R"+rem+" more for free delivery";
+    text.style.color = "#166534";
+  }
+}
+
+/* Hook into cart totals to update free delivery bar */
+var _origCartTotals = cartTotals;
+function cartTotals(){
+  var t = _origCartTotals ? _origCartTotals() : {total:0};
+  updateFreeDelivery(t.total||0);
+  return t;
+}
+
+/* Thank you page — detect PayFast return URL */
+function checkThankYou(){
+  if(window.location.pathname === "/thank-you" ||
+     window.location.pathname === "/thank-you.html" ||
+     window.location.search.includes("payment_status=COMPLETE")){
+    goPage("thankyou");
+  }
+}
+
 function init(){
   buildMenuCats();
   buildNavLinks();
@@ -1286,6 +1430,9 @@ function init(){
   document.getElementById("tiktokScrollGive").innerHTML = tk;
   document.getElementById("reviewScroll").innerHTML = REVIEWS.map(reviewCard).join("");
   initReveal();
+  startCountdown();
+  checkThankYou();
+  updateFreeDelivery(0);
   if(counterObserver) document.querySelectorAll('.hero-stats, .impact-grid').forEach(function(e){ counterObserver.observe(e); });
   loadProducts();
 }
