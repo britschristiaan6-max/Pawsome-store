@@ -449,6 +449,15 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 .co-section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:12px}
 .field select{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:.88rem;background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
 
+/* ============ ORDER HISTORY & SETTINGS SHEETS ============ */
+.oh-step{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.oh-step:last-of-type{border-bottom:none}
+.oh-num{min-width:28px;height:28px;background:var(--forest);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;margin-top:2px}
+.oh-step b{font-size:.88rem;color:var(--ink);display:block;margin-bottom:3px}
+.oh-step span{font-size:.8rem;color:var(--mid);line-height:1.5}
+.settings-section{background:var(--cream);border-radius:16px;padding:16px;margin:16px 0 4px}
+.settings-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:14px}
+
 /* ============================================================
    DESKTOP OVERRIDES (>=860px) — same DOM, different layout
    ============================================================ */
@@ -903,10 +912,67 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
     <a class="account-item" onclick="goPage('give')"><div class="account-item-icon">💚</div><div class="account-item-text"><h4>My Shelter Impact</h4><p>See your donation history</p></div><span class="account-item-arrow">›</span></a>
     <a class="account-item" onclick="goPage('home');setTimeout(function(){scrollToId('loyalty')},80)"><div class="account-item-icon">👑</div><div class="account-item-text"><h4>PawPoints</h4><p>0 points · Join now</p></div><span class="account-item-arrow">›</span></a>
     <a class="account-item" href="https://wa.me/27716430290?text=Hi%20PawSome!%20I%20need%20help." target="_blank"><div class="account-item-icon">💬</div><div class="account-item-text"><h4>WhatsApp Support</h4><p>Chat with us directly</p></div><span class="account-item-arrow">›</span></a>
-    <a class="account-item"><div class="account-item-icon">📦</div><div class="account-item-text"><h4>Order History</h4><p>Track your past orders</p></div><span class="account-item-arrow">›</span></a>
-    <a class="account-item"><div class="account-item-icon">⚙️</div><div class="account-item-text"><h4>Settings</h4><p>Address, notifications & more</p></div><span class="account-item-arrow">›</span></a>
+    <a class="account-item" onclick="openOrderHistory()"><div class="account-item-icon">📦</div><div class="account-item-text"><h4>Order History</h4><p>Track your past orders</p></div><span class="account-item-arrow">›</span></a>
+    <a class="account-item" onclick="openSettings()"><div class="account-item-icon">⚙️</div><div class="account-item-text"><h4>Settings</h4><p>Address, notifications & more</p></div><span class="account-item-arrow">›</span></a>
   </div>
 </section>
+
+<!-- ===== ORDER HISTORY SHEET ===== -->
+<div class="modal-overlay" id="orderHistoryOverlay" onclick="if(event.target===this)closeOrderHistory()">
+  <div class="sheet" id="orderHistorySheet">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeOrderHistory()">✕</button>
+    <div class="sheet-pad">
+      <div style="font-size:2rem;margin-bottom:10px">📦</div>
+      <h3>Order History</h3>
+      <p class="sub">Since PawSome fulfils orders through Takealot, your tracking info is sent directly to your email by Takealot after each order.</p>
+      <div class="oh-step"><div class="oh-num">1</div><div><b>Check your email</b><br><span>Takealot sends a shipping confirmation with a tracking link to the email you used at checkout.</span></div></div>
+      <div class="oh-step"><div class="oh-num">2</div><div><b>Check your spam folder</b><br><span>Sometimes tracking emails land in spam — search for "Takealot" if you can't find it.</span></div></div>
+      <div class="oh-step"><div class="oh-num">3</div><div><b>Still can't find it?</b><br><span>WhatsApp us with your name and order date and we'll check on it immediately.</span></div></div>
+      <a class="btn-flame" href="https://wa.me/27716430290?text=Hi%20PawSome!%20I%27d%20like%20to%20track%20my%20order.%20My%20name%20is%3A%20" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;text-decoration:none">💬 WhatsApp to track order</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SETTINGS SHEET ===== -->
+<div class="modal-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+  <div class="sheet" id="settingsSheet">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" onclick="closeSettings()">✕</button>
+    <div class="sheet-pad">
+      <div style="font-size:2rem;margin-bottom:10px">⚙️</div>
+      <h3>Settings</h3>
+      <p class="sub">Save your delivery address so checkout fills in automatically next time.</p>
+      <div class="settings-section">
+        <div class="settings-label">📦 Saved delivery address</div>
+        <div class="field-row-2">
+          <div class="field"><label>First Name</label><input type="text" id="setFirst" placeholder="Thandi"/></div>
+          <div class="field"><label>Last Name</label><input type="text" id="setLast" placeholder="Mokoena"/></div>
+        </div>
+        <div class="field"><label>Email</label><input type="email" id="setEmail" placeholder="thandi@email.com"/></div>
+        <div class="field"><label>Phone</label><input type="tel" id="setPhone" placeholder="071 234 5678"/></div>
+        <div class="field"><label>Street address</label><input type="text" id="setStreet" placeholder="12 Main Street"/></div>
+        <div class="field-row-2">
+          <div class="field"><label>Suburb</label><input type="text" id="setSuburb" placeholder="Sandton"/></div>
+          <div class="field"><label>Postal code</label><input type="text" id="setPostal" placeholder="2196"/></div>
+        </div>
+        <div class="field-row-2">
+          <div class="field"><label>City</label><input type="text" id="setCity" placeholder="Johannesburg"/></div>
+          <div class="field"><label>Province</label>
+            <select id="setProvince">
+              <option value="">Select…</option>
+              <option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option>
+              <option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option>
+              <option>North West</option><option>Free State</option><option>Northern Cape</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="btn-flame" onclick="saveSettings()" style="width:100%;justify-content:center;margin-top:6px">💾 Save address</button>
+      <button onclick="clearSettings()" style="width:100%;margin-top:10px;padding:12px;background:none;border:1.5px solid var(--border);border-radius:12px;color:var(--soft);font-weight:700;cursor:pointer;font-size:.85rem">🗑️ Clear saved data</button>
+    </div>
+  </div>
+</div>
 
 </main>
 
@@ -1465,6 +1531,7 @@ function renderCart(){
     '<button class="checkout-btn" onclick="cartGoToCheckout()">Checkout · R'+t.total+' →</button>';
 }
 function cartGoToCheckout(){
+  applysavedAddress();
   const t = cartTotals();
   document.getElementById("pfSummary").innerHTML =
     '<div class="pf-summary-row"><span>Subtotal</span><span>R'+t.subtotal+'</span></div>' +
@@ -1520,9 +1587,77 @@ function submitToPayfast(){
   setTimeout(function(){ document.getElementById("payfastForm").submit(); }, 600);
 }
 
+/* ============ ORDER HISTORY ============ */
+function openOrderHistory(){
+  document.getElementById("orderHistoryOverlay").classList.add("open");
+}
+function closeOrderHistory(){
+  document.getElementById("orderHistoryOverlay").classList.remove("open");
+}
+
+/* ============ SETTINGS ============ */
+function openSettings(){
+  loadSettingsIntoForm();
+  document.getElementById("settingsOverlay").classList.add("open");
+}
+function closeSettings(){
+  document.getElementById("settingsOverlay").classList.remove("open");
+}
+function saveSettings(){
+  var data = {
+    first:document.getElementById("setFirst").value.trim(),
+    last:document.getElementById("setLast").value.trim(),
+    email:document.getElementById("setEmail").value.trim(),
+    phone:document.getElementById("setPhone").value.trim(),
+    street:document.getElementById("setStreet").value.trim(),
+    suburb:document.getElementById("setSuburb").value.trim(),
+    postal:document.getElementById("setPostal").value.trim(),
+    city:document.getElementById("setCity").value.trim(),
+    province:document.getElementById("setProvince").value
+  };
+  try{ localStorage.setItem("pawsome_address", JSON.stringify(data)); } catch(e){}
+  showToast("✅ Address saved! Checkout will auto-fill next time.");
+  closeSettings();
+}
+function clearSettings(){
+  try{ localStorage.removeItem("pawsome_address"); } catch(e){}
+  ["setFirst","setLast","setEmail","setPhone","setStreet","setSuburb","setPostal","setCity"].forEach(function(id){ document.getElementById(id).value=""; });
+  document.getElementById("setProvince").value="";
+  showToast("🗑️ Saved data cleared");
+}
+function loadSettingsIntoForm(){
+  try{
+    var raw=localStorage.getItem("pawsome_address"); if(!raw) return;
+    var d=JSON.parse(raw);
+    if(d.first) document.getElementById("setFirst").value=d.first;
+    if(d.last) document.getElementById("setLast").value=d.last;
+    if(d.email) document.getElementById("setEmail").value=d.email;
+    if(d.phone) document.getElementById("setPhone").value=d.phone;
+    if(d.street) document.getElementById("setStreet").value=d.street;
+    if(d.suburb) document.getElementById("setSuburb").value=d.suburb;
+    if(d.postal) document.getElementById("setPostal").value=d.postal;
+    if(d.city) document.getElementById("setCity").value=d.city;
+    if(d.province) document.getElementById("setProvince").value=d.province;
+  } catch(e){}
+}
+function applysavedAddress(){
+  try{
+    var raw=localStorage.getItem("pawsome_address"); if(!raw) return;
+    var d=JSON.parse(raw);
+    if(d.first) document.getElementById("pfFirstName").value=d.first;
+    if(d.last) document.getElementById("pfLastName").value=d.last;
+    if(d.email) document.getElementById("pfEmail").value=d.email;
+    if(d.phone) document.getElementById("pfPhone").value=d.phone;
+    if(d.street) document.getElementById("pfStreet").value=d.street;
+    if(d.suburb) document.getElementById("pfSuburb").value=d.suburb;
+    if(d.postal) document.getElementById("pfPostal").value=d.postal;
+    if(d.city) document.getElementById("pfCity").value=d.city;
+    if(d.province) document.getElementById("pfProvince").value=d.province;
+  } catch(e){}
+}
+
 /* ============ LOYALTY ============ */
 function joinLoyalty(){
-  const email = document.getElementById("loyaltyEmail").value.trim();
   if(!email || !email.includes("@")){ showToast("Please enter a valid email"); return; }
   showToast("👑 Welcome to PawPoints!");
   document.getElementById("loyaltyEmail").value = "";
