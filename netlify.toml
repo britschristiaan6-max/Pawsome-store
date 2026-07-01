@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Redirect /api/payfast-itn → the function (cleaner URL for PayFast)
+[[redirects]]
+  from  = "/api/payfast-itn"
+  to    = "/.netlify/functions/payfast-itn"
+  status = 200
+
+# Redirect everything else to index.html (SPA fallback)
+[[redirects]]
+  from  = "/*"
+  to    = "/index.html"
+  status = 200
