@@ -2,17 +2,20 @@
   publish = "."
   functions = "netlify/functions"
 
+# PayFast ITN webhook
 [[redirects]]
   from   = "/api/payfast-itn"
   to     = "/.netlify/functions/payfast-itn"
   status = 200
 
+# South African visitors — show the full store
 [[redirects]]
   from       = "/*"
   to         = "/index.html"
   status     = 200
   conditions = {Country = ["ZA"]}
 
+# Everyone else — show the unavailable page
 [[redirects]]
   from   = "/*"
   to     = "/unavailable.html"
