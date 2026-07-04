@@ -589,7 +589,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 <header class="topbar-mobile mobile-only">
   <div class="topbar-inner">
     <button class="hamburger" id="hamBtn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-    <div class="brand">Paw<em>Some</em></div>
+    <div class="brand" onclick="goPage('home')" style="cursor:pointer">Paw<em>Some</em></div>
     <div class="topbar-spacer"></div>
     <button class="icon-btn" onclick="goPage('account')">👤</button>
     <button class="icon-btn" onclick="openCart()">🛒<span class="cart-badge" id="cartBadge">0</span></button>
@@ -623,7 +623,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 <!-- ===== DESKTOP NAV ===== -->
 <nav class="nav-desktop desktop-only">
   <div class="nav-inner">
-    <div class="nav-logo">Paw<em>Some</em></div>
+    <div class="nav-logo" onclick="goPage('home')" style="cursor:pointer">Paw<em>Some</em></div>
     <div class="nav-links" id="navLinks"></div>
     <div class="nav-search">
       <span class="si">🔍</span>
