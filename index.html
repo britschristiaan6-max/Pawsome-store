@@ -1062,6 +1062,7 @@ let pendingDonationName = "";
 
 /* ============ PAGE NAV ============ */
 var currentPage = "home";
+var pageStack = [];
 function goPage(page, fromPop){
   document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
@@ -1072,16 +1073,20 @@ function goPage(page, fromPop){
   window.scrollTo({top:0, behavior:"smooth"});
   if(page==="shop") renderShop();
   if(page==="account") renderAccount();
+  if(!fromPop && currentPage && currentPage !== page){ pageStack.push(currentPage); }
   currentPage = page;
   if(!fromPop){ try{ history.pushState({page:page},"","#"+page); }catch(e){} }
   initReveal();
 }
+function goHome(){ goPage("home"); }
 function goBack(){
-  if(history.length > 1){ history.back(); }
-  else { goPage("home"); }
+  var prev = pageStack.length ? pageStack.pop() : "home";
+  goPage(prev, true);
+  try{ history.replaceState({page:prev},"","#"+prev); }catch(e){}
 }
 window.addEventListener("popstate", function(e){
   var page = (e.state && e.state.page) ? e.state.page : "home";
+  if(pageStack.length && pageStack[pageStack.length-1] === page){ pageStack.pop(); }
   goPage(page, true);
 });
 function goShop(){ activeShopCat="all"; activeShopSubcat=null; activeShopSearch=null; goPage("shop"); }
