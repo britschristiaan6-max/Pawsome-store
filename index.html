@@ -196,8 +196,8 @@ img{max-width:100%;display:block} button{font-family:inherit;cursor:pointer;bord
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .product-card{background:var(--paper);border-radius:16px;overflow:hidden;border:1px solid var(--border);position:relative;transition:transform .2s,box-shadow .2s}
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.product-media{background:linear-gradient(145deg,#F1ECE0,#E8E1D0);aspect-ratio:1/0.85;display:flex;align-items:center;justify-content:center;font-size:2.6rem;position:relative;overflow:hidden}
-.product-img{width:100%;height:100%;object-fit:cover;display:block}
+.product-media{background:#fff;aspect-ratio:1/0.85;display:flex;align-items:center;justify-content:center;font-size:2.6rem;position:relative;overflow:hidden}
+.product-img{width:100%;height:100%;object-fit:contain;display:block;padding:10px;background:#fff}
 .product-placeholder{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--soft)}
 .product-placeholder .ph-icon{font-size:2.6rem;opacity:.6}
 .product-placeholder span{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
@@ -387,8 +387,8 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 .page-back{display:inline-flex;align-items:center;gap:8px;margin:14px 20px 0;padding:9px 18px 9px 14px;background:var(--paper);border:1px solid var(--border);border-radius:30px;font-weight:800;font-size:.82rem;color:var(--forest);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .sheet-close{z-index:6}
 .pd-wrap{max-width:940px;margin:0 auto;padding:12px 20px 44px}
-.pd-media{background:linear-gradient(145deg,#F1ECE0,#E8E1D0);border-radius:18px;aspect-ratio:1/0.9;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin-bottom:16px}
-.pd-media img{width:100%;height:100%;object-fit:cover}
+.pd-media{background:#fff;border:1px solid var(--border);border-radius:18px;aspect-ratio:1/0.9;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin-bottom:16px}
+.pd-media img{width:100%;height:100%;object-fit:contain;padding:14px}
 .pd-media .pd-icon{font-size:5rem}
 .pd-brand{font-size:.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--flame)}
 .pd-name{font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--forest);margin:4px 0 8px;line-height:1.2}
@@ -1203,12 +1203,40 @@ function quickSearch(term){
 }
 
 /* ============ HOME ============ */
+function homeFeaturedMix(){
+  var animals = ["dog","cat","fish","bird","small"];
+  var used = {}, pickedIds = {}, picks = [];
+  function score(p){
+    var s = 0;
+    if(p.badge) s += 2;                          // prefer promoted items
+    if(!used[p.cat+":"+p.sub]) s += 3;           // prefer a category not shown yet
+    if(p.image && p.image.indexOf("http")===0) s += 1; // prefer ones with a real photo
+    return s;
+  }
+  for(var round=0; round<4 && picks.length<8; round++){
+    for(var i=0;i<animals.length && picks.length<8;i++){
+      var a = animals[i];
+      var pool = products.filter(function(p){ return p.cat===a && !pickedIds[p.id]; });
+      if(!pool.length) continue;
+      pool.sort(function(x,y){ return score(y)-score(x); });
+      var p = pool[0];
+      picks.push(p); pickedIds[p.id] = 1;
+      used[p.cat+":"+p.sub] = 1;
+    }
+  }
+  return picks.slice(0,8);
+}
 function setHomeCat(cat, el){
   document.querySelectorAll(".cat-pill").forEach(function(p){ p.classList.remove("active"); });
-  el.classList.add("active");
-  let filtered = cat==="all" ? products : products.filter(function(p){ return p.cat===cat; });
-  filtered = filtered.filter(function(p){ return p.badge; }).slice(0,8);
-  if(!filtered.length) filtered = (cat==="all"?products:products.filter(function(p){ return p.cat===cat; })).slice(0,8);
+  if(el) el.classList.add("active");
+  var filtered;
+  if(cat==="all"){
+    filtered = homeFeaturedMix();
+  } else {
+    filtered = products.filter(function(p){ return p.cat===cat; });
+    var badged = filtered.filter(function(p){ return p.badge; });
+    filtered = (badged.length ? badged : filtered).slice(0,8);
+  }
   document.getElementById("homeFeaturedGrid").innerHTML = filtered.map(productCard).join("");
 }
 
