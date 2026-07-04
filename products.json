@@ -15,7 +15,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/montego-dog.jpg",
+  "image": "https://i.ibb.co/jkW9V8nG/Its-the-new-classic-feature-image-768x507.jpg",
   "variants": [
    {
     "vid": 26,
@@ -90,7 +90,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/royal-canin-dog.jpg",
+  "image": "https://i.ibb.co/NnkT2yKz/labrador-retriever-british-shorthair-b-w-brand-emblematic-copy.jpg",
   "variants": [
    {
     "vid": 31,
@@ -176,7 +176,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/hill-s-dog.jpg",
+  "image": "https://i.ibb.co/m5qHYMcj/Hills-Prescription-Diet-Updates-2022-dog.jpg",
   "variants": [
    {
     "vid": 38,
@@ -240,7 +240,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/pedigree-dog.jpg",
+  "image": "https://i.ibb.co/mrbBgs34/pedigree-logo-F411-A12498-seeklogo-com.png",
   "variants": [
    {
     "vid": 41,
@@ -293,7 +293,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/bobtail-dog.jpg",
+  "image": "https://i.ibb.co/wNhSdjZM/ecc86aa30d2febec6c959c30fa9b5e41.webp",
   "variants": [
    {
     "vid": 42,
@@ -335,7 +335,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/acana-dog.jpg",
+  "image": "https://i.ibb.co/fWDRyXR/Logo-16.png",
   "variants": [
    {
     "vid": 45,
@@ -388,7 +388,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/eukanuba-dog.jpg",
+  "image": "https://i.ibb.co/1J44VpJm/436b4c47540a5dbabfac785648dc0cfd.jpg",
   "variants": [
    {
     "vid": 48,
@@ -466,7 +466,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/jock-dog.jpg",
+  "image": "https://i.ibb.co/fzs4GJ7K/header5-e1697118035133.png",
   "variants": [
    {
     "vid": 52,
@@ -544,7 +544,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/whiskas-cat.jpg",
+  "image": "https://i.ibb.co/d4ghDnVq/Whiskas-logo.png",
   "variants": [
    {
     "vid": 55,
@@ -630,7 +630,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/royal-canin-cat.jpg",
+  "image": "https://i.ibb.co/NnkT2yKz/labrador-retriever-british-shorthair-b-w-brand-emblematic-copy.jpg",
   "variants": [
    {
     "vid": 204,
@@ -716,7 +716,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/hill-s-cat.jpg",
+  "image": "https://i.ibb.co/m5qHYMcj/Hills-Prescription-Diet-Updates-2022-dog.jpg",
   "variants": [
    {
     "vid": 64,
@@ -791,7 +791,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/felix-cat.jpg",
+  "image": "https://i.ibb.co/BkK9F0L/OIP-1.webp",
   "variants": [
    {
     "vid": 68,
@@ -851,7 +851,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/catmor-cat.jpg",
+  "image": "https://i.ibb.co/TD9Kcyvx/logo.png",
   "variants": [
    {
     "vid": 71,
@@ -911,7 +911,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/iams-cat.jpg",
+  "image": "https://i.ibb.co/ZRP0Nvsy/Iams-logo.jpg",
   "variants": [
    {
     "vid": 74,
@@ -1007,7 +1007,7 @@
   "badge": null,
   "cost": null,
   "takealotUrl": "",
-  "image": "images/products/montego-cat.jpg",
+  "image": "https://i.ibb.co/jkW9V8nG/Its-the-new-classic-feature-image-768x507.jpg",
   "variants": [
    {
     "vid": 79,
