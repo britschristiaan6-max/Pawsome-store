@@ -398,6 +398,13 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
 .pd-price .orig{font-size:1rem;color:var(--soft);text-decoration:line-through;margin-left:10px}
 .pd-desc{font-size:.92rem;line-height:1.75;color:var(--mid);margin-bottom:22px}
 .pd-add{width:100%;padding:16px;background:var(--flame);color:#fff;border:none;border-radius:14px;font-weight:800;font-size:1rem;cursor:pointer}
+.pd-picks{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.pd-pick{display:flex;flex-direction:column;gap:6px}
+.pd-pick label{font-size:.78rem;font-weight:800;color:var(--forest);text-transform:uppercase;letter-spacing:.03em}
+.pd-pick select{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:12px;background:var(--paper);font-size:.95rem;font-family:var(--font);color:var(--ink);outline:none;cursor:pointer}
+.pd-pick select:focus{border-color:var(--flame)}
+.pd-result{min-height:10px;margin-bottom:8px}
+.pd-chosen{font-size:.82rem;color:var(--mid);margin-bottom:18px}
 .pd-gift{margin-top:10px;width:100%;padding:14px;background:var(--paper);border:2px solid var(--forest);border-radius:14px;color:var(--forest);font-weight:800;cursor:pointer}
 .lp-card{background:linear-gradient(135deg,var(--forest-deep),var(--forest));color:#fff;border-radius:18px;padding:22px;margin:14px 20px}
 .lp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -1242,6 +1249,10 @@ function productCard(p){
   const origPrice = p.orig ? '<span class="orig">R'+p.orig+'</span>' : "";
   const imgPath = p.image || ("images/products/"+p.id+".jpg");
   const safeName = (p.name||"").replace(/"/g,"&quot;");
+  const priceRow = p.variants
+    ? '<div class="product-price-row"><div class="product-price" style="font-size:.82rem;color:var(--flame)">Choose options ›</div></div>'
+    : '<div class="product-price-row"><div class="product-price">R'+p.price+origPrice+'</div>' +
+      '<button class="add-btn" onclick="event.stopPropagation();addToCart('+p.id+')">+</button></div>';
   return '<div class="product-card" style="cursor:pointer" onclick="openProduct('+p.id+')">' +
     '<div class="product-media">'+badge+shelterFlag+
       '<img class="product-img" src="'+imgPath+'" alt="'+safeName+'" loading="lazy" onerror="this.parentElement.classList.add(\'no-image\')"/>' +
@@ -1251,24 +1262,26 @@ function productCard(p){
       '<div class="product-brand">'+p.brand+'</div>' +
       '<div class="product-name">'+p.name+'</div>' +
       '<div class="product-rating"><span class="stars">'+stars+'</span><span>'+p.rating+' ('+p.rev+')</span></div>' +
-      '<div class="product-price-row"><div class="product-price">R'+p.price+origPrice+'</div>' +
-      '<button class="add-btn" onclick="event.stopPropagation();addToCart('+p.id+')">+</button></div>' +
+      priceRow +
     '</div></div>';
 }
 
 /* ============ CART ============ */
-function addToCart(id, isGift){
-  const p = products.find(function(x){ return x.id===id; });
-  if(!p) return;
-  const existing = cart.find(function(c){ return c.id===id && !c.isGift===!isGift; });
+function pushCartLine(line, isGift){
+  const existing = cart.find(function(c){ return c.id===line.id && !c.isGift===!isGift; });
   if(existing){ existing.qty++; }
-  else { cart.push({id:p.id, name:p.name, price:p.price, icon:p.icon, qty:1, isGift: !!isGift, donor: isGift ? pendingDonationName : null}); }
+  else { cart.push({id:line.id, name:line.name, price:line.price, icon:line.icon, qty:1, isGift: !!isGift, donor: isGift ? pendingDonationName : null}); }
   updateCartCount(); renderCart();
   if(isGift){ showToast("💚 Gift added — thank you!"); }
   else {
-    showToast(p.icon+" Added to basket");
-    if(p.shelter){ openDonationModal(p); } else { openCart(); }
+    showToast((line.icon||"🛒")+" Added to basket");
+    if(line.shelter){ openDonationModal(line); } else { openCart(); }
   }
+}
+function addToCart(id, isGift){
+  const p = products.find(function(x){ return x.id===id; });
+  if(!p) return;
+  pushCartLine({id:p.id, name:p.name, price:p.price, icon:p.icon, shelter:p.shelter}, isGift);
 }
 function updateCartCount(){
   const n = cart.reduce(function(s,c){return s+c.qty;},0);
@@ -1309,7 +1322,9 @@ function renderCart(){
 }
 
 /* ============ DONATION MODAL ============ */
+let pendingDonationLine = null;
 function openDonationModal(p){
+  pendingDonationLine = {id:p.id, name:p.name, price:p.price, icon:p.icon, shelter:true};
   pendingDonationProductId = p.id;
   document.getElementById("donationProductName").textContent = p.name;
   document.getElementById("donorName").value = "";
@@ -1319,7 +1334,7 @@ function closeDonationModal(){ document.getElementById("donationOverlay").classL
 function confirmDonation(){
   const name = document.getElementById("donorName").value.trim() || "Anonymous";
   pendingDonationName = name;
-  addToCart(pendingDonationProductId, true);
+  if(pendingDonationLine){ pushCartLine(pendingDonationLine, true); }
   document.getElementById("donationOverlay").classList.remove("open");
   openCart();
 }
@@ -1432,11 +1447,46 @@ function openProduct(id){
   var p = products.find(function(x){ return x.id === id; });
   if(!p) return;
   pdCurrentProduct = p;
+  pdSel = {};
   renderProductPage();
   goPage("product");
 }
+var PD_FACETS = [["stage","Life stage"],["flavour","Type / recipe"],["kg","Bag size"],["dogsize","Dog size"]];
+var pdSel = {};
+function pdResolved(p){
+  var pool = p.variants.slice();
+  for(var i=0;i<PD_FACETS.length;i++){
+    var f = PD_FACETS[i][0];
+    var vals = []; pool.forEach(function(v){ if(vals.indexOf(v[f])<0) vals.push(v[f]); });
+    if(vals.length<=1){ if(vals.length===1){ pool = pool.filter(function(v){ return v[f]===vals[0]; }); } continue; }
+    if(pdSel[f]==null) return null;
+    pool = pool.filter(function(v){ return v[f]===pdSel[f]; });
+  }
+  return pool.length ? pool[0] : null;
+}
+function pdPickersHTML(p){
+  var html = ""; var pool = p.variants.slice(); var stop = false;
+  for(var i=0;i<PD_FACETS.length && !stop;i++){
+    var f = PD_FACETS[i][0], lbl = PD_FACETS[i][1];
+    var vals = []; pool.forEach(function(v){ if(vals.indexOf(v[f])<0) vals.push(v[f]); });
+    if(vals.length<=1){ if(vals.length===1) pool = pool.filter(function(v){ return v[f]===vals[0]; }); continue; }
+    var opts = '<option value="">Choose '+lbl.toLowerCase()+'…</option>';
+    vals.forEach(function(val){ opts += '<option value="'+String(val).replace(/"/g,"&quot;")+'"'+(pdSel[f]===val?" selected":"")+'>'+val+'</option>'; });
+    html += '<div class="pd-pick"><label>'+lbl+'</label><select onchange="pdPick(\''+f+'\',this.value)">'+opts+'</select></div>';
+    if(pdSel[f]==null){ stop = true; break; }
+    pool = pool.filter(function(v){ return v[f]===pdSel[f]; });
+  }
+  return html;
+}
+function pdPick(f, val){
+  if(val==="") delete pdSel[f]; else pdSel[f] = val;
+  var idx = -1; for(var i=0;i<PD_FACETS.length;i++){ if(PD_FACETS[i][0]===f) idx=i; }
+  for(var j=idx+1;j<PD_FACETS.length;j++) delete pdSel[PD_FACETS[j][0]];
+  renderProductPage();
+}
 function renderProductPage(){
   var p = pdCurrentProduct; if(!p) return;
+  if(p.variants){ renderVariantPage(p); return; }
   var stars = "★★★★★".slice(0, Math.round(p.rating));
   var imgPath = p.image || ("images/products/"+p.id+".jpg");
   var orig = p.orig ? '<span class="pd-orig">R'+p.orig+'</span>' : "";
@@ -1454,7 +1504,51 @@ function renderProductPage(){
       giftBtn +
     '</div>';
 }
-function pdAddToCart(){ if(pdCurrentProduct) addToCart(pdCurrentProduct.id); }
+function renderVariantPage(p){
+  var stars = "★★★★★".slice(0, Math.round(p.rating));
+  var imgPath = p.image || ("images/products/"+p.id+".jpg");
+  var v = pdResolved(p);
+  var result, addBtn, giftBtn = "";
+  if(v){
+    var title = [ (v.flavour && v.flavour!=="Standard") ? v.flavour : "", v.stage, v.kg ].filter(Boolean).join(" ");
+    result = '<div class="pd-price">R'+v.price+'</div>' +
+             '<p class="pd-desc">'+(v.desc||"")+'</p>' +
+             '<div class="pd-chosen">Selected: <b>'+p.brand+" "+title+'</b></div>';
+    addBtn = '<button class="pd-add" onclick="pdAddToCart()">Add to basket · R'+v.price+'</button>';
+    if(v.shelter) giftBtn = '<button class="pd-gift" onclick="pdGift()">💚 Gift this one to a shelter pet</button>';
+  } else {
+    result = '<p class="pd-desc" style="opacity:.7">Choose the options below and the price will appear here.</p>';
+    addBtn = '<button class="pd-add" disabled style="opacity:.5;cursor:default">Select options above</button>';
+  }
+  document.getElementById("pdWrap").innerHTML =
+    '<div class="pd-media"><img src="'+imgPath+'" alt="'+(p.name||"").replace(/"/g,"&quot;")+'" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<span style=&quot;font-size:5rem&quot;>'+p.icon+'</span>\'"/></div>' +
+    '<div class="pd-info">' +
+      '<div class="pd-brand">'+p.brand+'</div>' +
+      '<div class="pd-name">'+p.name+'</div>' +
+      '<div class="pd-rating"><span class="stars">'+stars+'</span><span>'+p.rating+' ('+p.rev+' reviews)</span></div>' +
+      '<div class="pd-picks">'+pdPickersHTML(p)+'</div>' +
+      '<div class="pd-result">'+result+'</div>' +
+      addBtn + giftBtn +
+    '</div>';
+}
+function pdAddToCart(){
+  var p = pdCurrentProduct; if(!p) return;
+  if(p.variants){
+    var v = pdResolved(p);
+    if(!v){ showToast("Please choose all the options first"); return; }
+    var title = [ (v.flavour && v.flavour!=="Standard") ? v.flavour : "", v.stage, v.kg ].filter(Boolean).join(" ");
+    pushCartLine({id:v.vid, name:p.brand+" "+title, price:v.price, icon:p.icon, shelter:v.shelter}, false);
+    return;
+  }
+  addToCart(p.id);
+}
+function pdGift(){
+  var p = pdCurrentProduct; if(!p || !p.variants) return;
+  var v = pdResolved(p);
+  if(!v){ showToast("Please choose all the options first"); return; }
+  var title = [ (v.flavour && v.flavour!=="Standard") ? v.flavour : "", v.stage, v.kg ].filter(Boolean).join(" ");
+  openDonationModal({id:v.vid, name:p.brand+" "+title, price:v.price, icon:p.icon});
+}
 
 /* ---------- Account sheets: Order History + Settings ---------- */
 var AKEY = "pawsome_address";
