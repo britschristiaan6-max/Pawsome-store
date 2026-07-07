@@ -618,7 +618,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
   <div class="search-row">
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInputMobile" placeholder="Search dog food, cat litter, fish tanks..." oninput="onSearchInput(this.value,'searchSuggestMobile')" onfocus="onSearchInput(this.value,'searchSuggestMobile')"/>
+      <input type="text" id="searchInputMobile" placeholder="Search dog food, cat litter, fish tanks..." oninput="onSearchInput(this.value,'searchSuggestMobile')" onfocus="onSearchInput(this.value,'searchSuggestMobile')" onkeydown="if(event.key==='Enter')quickSearch(this.value)"/>
       <div class="search-suggest" id="searchSuggestMobile"></div>
     </div>
   </div>
@@ -648,7 +648,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
     <div class="nav-links" id="navLinks"></div>
     <div class="nav-search">
       <span class="si">🔍</span>
-      <input type="text" id="searchInputDesktop" placeholder="Search dog food, cat litter, fish tanks..." oninput="onSearchInput(this.value,'searchSuggestDesktop')" onfocus="onSearchInput(this.value,'searchSuggestDesktop')"/>
+      <input type="text" id="searchInputDesktop" placeholder="Search dog food, cat litter, fish tanks..." oninput="onSearchInput(this.value,'searchSuggestDesktop')" onfocus="onSearchInput(this.value,'searchSuggestDesktop')" onkeydown="if(event.key==='Enter')quickSearch(this.value)"/>
       <div class="nav-search-suggest" id="searchSuggestDesktop"></div>
     </div>
     <div class="nav-cta">
@@ -1210,13 +1210,28 @@ function onSearchInput(val, suggestId){
   const box = document.getElementById(suggestId);
   val = (val||"").trim().toLowerCase();
   if(!val){ box.classList.remove("open"); box.innerHTML=""; return; }
-  const matches = Object.keys(KEYWORDS).filter(function(k){ return k.includes(val); }).slice(0,7);
-  if(!matches.length){ box.classList.remove("open"); return; }
   const itemClass = suggestId === "searchSuggestDesktop" ? "nss-item" : "suggest-item";
-  box.innerHTML = matches.map(function(k){
-    return '<div class="'+itemClass+'" onmousedown="quickSearch(\''+k.replace(/'/g,"\\'")+'\')">🔍 '+k+'</div>';
-  }).join("");
+  const kw = Object.keys(KEYWORDS).filter(function(k){ return k.includes(val); }).slice(0,3);
+  const prod = products.filter(function(p){
+    return p.name.toLowerCase().includes(val) || (p.brand||"").toLowerCase().includes(val);
+  }).slice(0,7);
+  var html = "";
+  kw.forEach(function(k){
+    html += '<div class="'+itemClass+'" onmousedown="searchTerm(\''+encodeURIComponent(k)+'\')">🔍 '+k+'</div>';
+  });
+  prod.forEach(function(p){
+    html += '<div class="'+itemClass+'" onmousedown="pickProduct('+p.id+')"><span style="margin-right:7px">'+(p.icon||"🐾")+'</span>'+p.name+'<span style="color:var(--soft);margin-left:6px">R'+p.price+'</span></div>';
+  });
+  if(!html){ box.classList.remove("open"); box.innerHTML=""; return; }
+  box.innerHTML = html;
   box.classList.add("open");
+}
+function searchTerm(enc){ quickSearch(decodeURIComponent(enc)); }
+function pickProduct(id){
+  closeSuggest("searchSuggestMobile"); closeSuggest("searchSuggestDesktop");
+  var mb=document.getElementById("searchInputMobile"); if(mb) mb.value="";
+  var dt=document.getElementById("searchInputDesktop"); if(dt) dt.value="";
+  openProduct(id);
 }
 function quickSearch(term){
   const mb = document.getElementById("searchInputMobile"); if(mb) mb.value = term;
