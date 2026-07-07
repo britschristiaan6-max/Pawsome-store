@@ -943,7 +943,7 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
       </div>
       <div class="field"><label>Email</label><input type="email" id="pfEmail" placeholder="thandi@email.com"/></div>
       <div class="field"><label>Phone</label><input type="tel" id="pfPhone" placeholder="071 234 5678"/></div>
-      <div class="field"><label>Delivery Address</label><input type="text" id="pfAddress" placeholder="Street address & suburb"/></div>
+      <div class="field" style="position:relative"><label>Delivery Address</label><input type="text" id="pfAddress" placeholder="Street address & suburb" autocomplete="off" oninput="onAddressInput(this.value)" onblur="setTimeout(closeAddrSuggest,180)"/><div class="search-suggest" id="addrSuggest"></div></div>
       <div class="field-row-2">
         <div class="field"><label>City / Town</label><input type="text" id="pfCity" placeholder="Pretoria"/></div>
         <div class="field"><label>Postal Code</label><input type="text" id="pfPostal" placeholder="0181"/></div>
@@ -1695,6 +1695,105 @@ function saveSettings(){
   showToast("✅ Delivery details saved");
   closeSettingsSheet();
 }
+/* ===== SA suburb autocomplete (free, built-in — expandable) ===== */
+var SA_SUBURBS = [
+  // Gauteng — Pretoria / Tshwane
+  ["Brooklyn","Pretoria","0181","Gauteng"],["Menlo Park","Pretoria","0081","Gauteng"],["Lynnwood","Pretoria","0081","Gauteng"],
+  ["Hatfield","Pretoria","0028","Gauteng"],["Arcadia","Pretoria","0083","Gauteng"],["Sunnyside","Pretoria","0002","Gauteng"],
+  ["Waterkloof","Pretoria","0145","Gauteng"],["Faerie Glen","Pretoria","0043","Gauteng"],["Garsfontein","Pretoria","0042","Gauteng"],
+  ["Moreleta Park","Pretoria","0044","Gauteng"],["Silver Lakes","Pretoria","0054","Gauteng"],["Equestria","Pretoria","0184","Gauteng"],
+  ["Montana","Pretoria","0182","Gauteng"],["Wonderboom","Pretoria","0182","Gauteng"],["Annlin","Pretoria","0182","Gauteng"],
+  ["Pretoria North","Pretoria","0182","Gauteng"],["Akasia","Pretoria","0182","Gauteng"],["Doornpoort","Pretoria","0017","Gauteng"],
+  ["Villieria","Pretoria","0186","Gauteng"],["Queenswood","Pretoria","0186","Gauteng"],["Rietfontein","Pretoria","0084","Gauteng"],
+  ["Mamelodi","Pretoria","0122","Gauteng"],["Atteridgeville","Pretoria","0008","Gauteng"],["Soshanguve","Pretoria","0152","Gauteng"],
+  ["Centurion","Centurion","0157","Gauteng"],["Eldoraigne","Centurion","0157","Gauteng"],["Wierda Park","Centurion","0157","Gauteng"],
+  ["Rooihuiskraal","Centurion","0154","Gauteng"],["The Reeds","Centurion","0157","Gauteng"],["Highveld","Centurion","0169","Gauteng"],
+  ["Irene","Centurion","0062","Gauteng"],["Lyttelton","Centurion","0157","Gauteng"],
+  // Gauteng — Johannesburg / East & West Rand
+  ["Sandton","Johannesburg","2196","Gauteng"],["Rosebank","Johannesburg","2196","Gauteng"],["Randburg","Johannesburg","2194","Gauteng"],
+  ["Bryanston","Johannesburg","2191","Gauteng"],["Fourways","Johannesburg","2055","Gauteng"],["Midrand","Midrand","1685","Gauteng"],
+  ["Roodepoort","Roodepoort","1724","Gauteng"],["Soweto","Johannesburg","1804","Gauteng"],["Rivonia","Johannesburg","2128","Gauteng"],
+  ["Morningside","Johannesburg","2057","Gauteng"],["Illovo","Johannesburg","2196","Gauteng"],["Parktown","Johannesburg","2193","Gauteng"],
+  ["Houghton","Johannesburg","2198","Gauteng"],["Bedfordview","Germiston","2007","Gauteng"],["Kempton Park","Kempton Park","1619","Gauteng"],
+  ["Benoni","Benoni","1501","Gauteng"],["Boksburg","Boksburg","1459","Gauteng"],["Germiston","Germiston","1401","Gauteng"],
+  ["Alberton","Alberton","1449","Gauteng"],["Edenvale","Edenvale","1609","Gauteng"],["Krugersdorp","Krugersdorp","1739","Gauteng"],
+  ["Northcliff","Johannesburg","2195","Gauteng"],["Greenside","Johannesburg","2193","Gauteng"],["Emmarentia","Johannesburg","2195","Gauteng"],
+  ["Sunninghill","Johannesburg","2157","Gauteng"],["Woodmead","Johannesburg","2191","Gauteng"],["Lonehill","Johannesburg","2062","Gauteng"],
+  ["Kyalami","Midrand","1684","Gauteng"],["Honeydew","Roodepoort","2170","Gauteng"],["Douglasdale","Johannesburg","2191","Gauteng"],
+  // Western Cape
+  ["Cape Town City Centre","Cape Town","8001","Western Cape"],["Sea Point","Cape Town","8005","Western Cape"],["Green Point","Cape Town","8005","Western Cape"],
+  ["Camps Bay","Cape Town","8005","Western Cape"],["Claremont","Cape Town","7708","Western Cape"],["Rondebosch","Cape Town","7700","Western Cape"],
+  ["Newlands","Cape Town","7700","Western Cape"],["Constantia","Cape Town","7806","Western Cape"],["Bellville","Cape Town","7530","Western Cape"],
+  ["Durbanville","Cape Town","7550","Western Cape"],["Century City","Cape Town","7441","Western Cape"],["Milnerton","Cape Town","7441","Western Cape"],
+  ["Table View","Cape Town","7439","Western Cape"],["Stellenbosch","Stellenbosch","7600","Western Cape"],["Somerset West","Cape Town","7130","Western Cape"],
+  ["Parow","Cape Town","7500","Western Cape"],["Goodwood","Cape Town","7460","Western Cape"],["Muizenberg","Cape Town","7945","Western Cape"],
+  ["Observatory","Cape Town","7925","Western Cape"],["Woodstock","Cape Town","7925","Western Cape"],["Gardens","Cape Town","8001","Western Cape"],
+  ["Kuils River","Cape Town","7580","Western Cape"],
+  // KwaZulu-Natal
+  ["Durban Central","Durban","4001","KwaZulu-Natal"],["Umhlanga","Durban","4319","KwaZulu-Natal"],["Ballito","Ballito","4420","KwaZulu-Natal"],
+  ["Berea","Durban","4001","KwaZulu-Natal"],["Glenwood","Durban","4001","KwaZulu-Natal"],["Westville","Durban","3629","KwaZulu-Natal"],
+  ["Pinetown","Pinetown","3610","KwaZulu-Natal"],["Hillcrest","Hillcrest","3610","KwaZulu-Natal"],["Kloof","Kloof","3610","KwaZulu-Natal"],
+  ["Chatsworth","Durban","4092","KwaZulu-Natal"],["Phoenix","Durban","4068","KwaZulu-Natal"],["Amanzimtoti","Amanzimtoti","4126","KwaZulu-Natal"],
+  ["Durban North","Durban","4051","KwaZulu-Natal"],["La Lucia","Durban","4051","KwaZulu-Natal"],["Musgrave","Durban","4001","KwaZulu-Natal"],
+  ["Pietermaritzburg","Pietermaritzburg","3201","KwaZulu-Natal"],
+  // Eastern Cape
+  ["Gqeberha Central","Gqeberha","6001","Eastern Cape"],["Summerstrand","Gqeberha","6001","Eastern Cape"],["Walmer","Gqeberha","6070","Eastern Cape"],
+  ["East London","East London","5201","Eastern Cape"],["Mthatha","Mthatha","5100","Eastern Cape"],["Uitenhage","Kariega","6229","Eastern Cape"],
+  ["Makhanda","Makhanda","6139","Eastern Cape"],
+  // Free State
+  ["Bloemfontein Central","Bloemfontein","9301","Free State"],["Universitas","Bloemfontein","9301","Free State"],["Langenhoven Park","Bloemfontein","9301","Free State"],
+  ["Welkom","Welkom","9459","Free State"],["Bethlehem","Bethlehem","9700","Free State"],
+  // Limpopo
+  ["Polokwane Central","Polokwane","0700","Limpopo"],["Bendor","Polokwane","0699","Limpopo"],["Tzaneen","Tzaneen","0850","Limpopo"],
+  ["Mokopane","Mokopane","0600","Limpopo"],["Thohoyandou","Thohoyandou","0950","Limpopo"],
+  // Mpumalanga
+  ["Mbombela","Mbombela","1200","Mpumalanga"],["eMalahleni","eMalahleni","1035","Mpumalanga"],["Middelburg","Middelburg","1050","Mpumalanga"],
+  ["Secunda","Secunda","2302","Mpumalanga"],["Ermelo","Ermelo","2350","Mpumalanga"],
+  // North West
+  ["Rustenburg","Rustenburg","0299","North West"],["Potchefstroom","Potchefstroom","2531","North West"],["Klerksdorp","Klerksdorp","2571","North West"],
+  ["Mahikeng","Mahikeng","2745","North West"],["Brits","Brits","0250","North West"],
+  // Northern Cape
+  ["Kimberley","Kimberley","8301","Northern Cape"],["Upington","Upington","8801","Northern Cape"],["Kathu","Kathu","8446","Northern Cape"]
+];
+function onAddressInput(val){
+  var box = document.getElementById("addrSuggest");
+  if(!box) return;
+  val = val || "";
+  // match on the segment after the last comma, else the whole string
+  var seg = (val.indexOf(",") > -1 ? val.slice(val.lastIndexOf(",")+1) : val).trim().toLowerCase();
+  if(seg.length < 2){ closeAddrSuggest(); return; }
+  var starts = [], contains = [];
+  for(var i=0;i<SA_SUBURBS.length;i++){
+    var s = SA_SUBURBS[i], nm = s[0].toLowerCase();
+    if(nm.indexOf(seg) === 0) starts.push(s);
+    else if(nm.indexOf(seg) > -1) contains.push(s);
+    if(starts.length >= 6) break;
+  }
+  var list = starts.concat(contains).slice(0,6);
+  if(!list.length){ closeAddrSuggest(); return; }
+  box.innerHTML = list.map(function(s){
+    var arg = encodeURIComponent(JSON.stringify(s));
+    return '<div class="suggest-item" onmousedown="pickSuburb(\''+arg+'\')">'
+         + '<span style="width:22px">📍</span><span>'+s[0]+' <span style="color:var(--soft);font-weight:500">— '+s[1]+' · '+s[2]+'</span></span></div>';
+  }).join("");
+  box.classList.add("open");
+}
+function pickSuburb(arg){
+  try{
+    var s = JSON.parse(decodeURIComponent(arg));
+    var inp = document.getElementById("pfAddress");
+    var val = inp.value || "";
+    var seg = (val.indexOf(",") > -1 ? val.slice(val.lastIndexOf(",")+1) : val);
+    var base = val.slice(0, val.length - seg.length).replace(/,\s*$/,"").trim();
+    inp.value = base ? base + ", " + s[0] : s[0];
+    document.getElementById("pfCity").value = s[1];
+    document.getElementById("pfPostal").value = s[2];
+    document.getElementById("pfProvince").value = s[3];
+  }catch(e){}
+  closeAddrSuggest();
+}
+function closeAddrSuggest(){ var b=document.getElementById("addrSuggest"); if(b) b.classList.remove("open"); }
+
 function applySavedAddress(){
   try{
     var a = JSON.parse(localStorage.getItem(AKEY) || "{}");
