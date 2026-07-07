@@ -1259,9 +1259,10 @@ function setHomeCat(cat, el){
   if(cat==="all"){
     filtered = homeFeaturedMix();
   } else {
-    filtered = products.filter(function(p){ return p.cat===cat; });
-    var badged = filtered.filter(function(p){ return p.badge; });
-    filtered = (badged.length ? badged : filtered).slice(0,8);
+    var all = products.filter(function(p){ return p.cat===cat; });
+    var badged = all.filter(function(p){ return p.badge; });
+    var rest = all.filter(function(p){ return !p.badge; }).sort(function(x,y){ return (y.rating||0)-(x.rating||0); });
+    filtered = badged.concat(rest).slice(0,4);
   }
   document.getElementById("homeFeaturedGrid").innerHTML = filtered.map(productCard).join("");
 }
