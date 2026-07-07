@@ -943,12 +943,25 @@ footer{background:var(--forest-deep);color:rgba(255,255,255,.65)}
       </div>
       <div class="field"><label>Email</label><input type="email" id="pfEmail" placeholder="thandi@email.com"/></div>
       <div class="field"><label>Phone</label><input type="tel" id="pfPhone" placeholder="071 234 5678"/></div>
+      <div class="field"><label>Delivery Address</label><input type="text" id="pfAddress" placeholder="Street address & suburb"/></div>
+      <div class="field-row-2">
+        <div class="field"><label>City / Town</label><input type="text" id="pfCity" placeholder="Pretoria"/></div>
+        <div class="field"><label>Postal Code</label><input type="text" id="pfPostal" placeholder="0181"/></div>
+      </div>
+      <div class="field"><label>Province</label>
+        <select id="pfProvince">
+          <option value="">Select province…</option>
+          <option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option>
+          <option>Eastern Cape</option><option>Free State</option><option>Limpopo</option>
+          <option>Mpumalanga</option><option>North West</option><option>Northern Cape</option>
+        </select>
+      </div>
       <div class="pf-summary" id="pfSummary"></div>
       <button class="pf-pay-btn" onclick="submitToPayfast()"><span>Pay with PayFast</span><span id="pfTotalBtn">R0.00</span></button>
       <div class="pf-secure">🔒 Secured by PayFast · Google Pay · Apple Pay · Card · EFT</div>
       <form id="payfastForm" action="https://www.payfast.co.za/eng/process" method="POST" style="display:none">
         <input type="hidden" name="merchant_id" id="pf_merchant_id" value="36077609"/>
-        <input type="hidden" name="merchant_key" id="pf_merchant_key" value="emhusa42lempz"/>
+        <input type="hidden" name="merchant_key" id="pf_merchant_key" value="YOUR_MERCHANT_KEY"/>
         <input type="hidden" name="return_url" value="https://pawsome-sa.netlify.app/?paid=1#home"/>
         <input type="hidden" name="cancel_url" value="https://pawsome-sa.netlify.app/#home"/>
         <input type="hidden" name="amount" id="pf_amount" value="0"/>
@@ -1370,10 +1383,12 @@ function sendOrderEmail(t){
     var last  = document.getElementById("pfLastName").value.trim();
     var email = document.getElementById("pfEmail").value.trim();
     var phone = document.getElementById("pfPhone").value.trim();
-    var addr = {};
-    try{ addr = JSON.parse(localStorage.getItem(AKEY) || "{}"); }catch(e){}
-    var addressText = [addr.address, addr.city, addr.postal, addr.province].filter(Boolean).join(", ")
-                      || "Not provided — follow up with customer";
+    var addressText = [
+      (document.getElementById("pfAddress")||{}).value,
+      (document.getElementById("pfCity")||{}).value,
+      (document.getElementById("pfPostal")||{}).value,
+      (document.getElementById("pfProvince")||{}).value
+    ].map(function(v){ return (v||"").trim(); }).filter(Boolean).join(", ") || "Not provided";
     var itemsText = cart.map(function(c){
       return "• " + c.qty + " x " + c.name +
              (c.isGift ? " [SHELTER GIFT" + (c.donor ? " from " + c.donor : "") + "]" : "") +
@@ -1413,7 +1428,19 @@ function sendOrderEmail(t){
 function submitToPayfast(){
   const first = document.getElementById("pfFirstName").value.trim();
   const email = document.getElementById("pfEmail").value.trim();
+  const address = document.getElementById("pfAddress").value.trim();
+  const city = document.getElementById("pfCity").value.trim();
+  const postal = document.getElementById("pfPostal").value.trim();
+  const province = document.getElementById("pfProvince").value.trim();
   if(!first || !email){ showToast("Please fill in your name & email"); return; }
+  if(!address || !city || !postal || !province){ showToast("Please add your full delivery address"); return; }
+  try{
+    var _a = JSON.parse(localStorage.getItem(AKEY) || "{}");
+    _a.first = first; _a.last = document.getElementById("pfLastName").value.trim();
+    _a.email = email; _a.phone = document.getElementById("pfPhone").value.trim();
+    _a.address = address; _a.city = city; _a.postal = postal; _a.province = province;
+    localStorage.setItem(AKEY, JSON.stringify(_a));
+  }catch(e){}
   const t = cartTotals();
   if(getLoyalty()){
     var earned = Math.floor(t.total/10);
@@ -1674,6 +1701,8 @@ function applySavedAddress(){
     var set = function(id,v){ var el=document.getElementById(id); if(el && !el.value && v) el.value = v; };
     set("pfFirstName", a.first); set("pfLastName", a.last);
     set("pfEmail", a.email); set("pfPhone", a.phone);
+    set("pfAddress", a.address); set("pfCity", a.city);
+    set("pfPostal", a.postal); set("pfProvince", a.province);
   }catch(e){}
 }
 
